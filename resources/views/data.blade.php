@@ -1,5 +1,4 @@
-<h2>Personal Data</h2>
-<h3>Enter ID Izin</h3>
+<h3>VERIFIKASI</h3>
 <form method="POST" action="{{ route('showData') }}">
   @csrf
   <label for="id_izin">ID Izin: </label>

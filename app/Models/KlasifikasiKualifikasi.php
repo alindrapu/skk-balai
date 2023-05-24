@@ -34,9 +34,9 @@ class KlasifikasiKualifikasi extends Model
         'sertifikat_skk',
         'self_asesmen_apl',
         'sertifikat_skk',
-        'no_registrasi_asosiasi',
+        // 'no_registrasi_asosiasi',
         'klasifikasi',
-        'deleted_at'
+        // 'deleted_at'
     ]);
 
     public function personals()

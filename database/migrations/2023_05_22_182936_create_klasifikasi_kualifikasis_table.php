@@ -25,18 +25,18 @@ return new class extends Migration
             $table->string('kualifikasi');
             $table->string('jabatan_kerja');
             $table->integer('jenjang');
-            $table->integer('asosiasi');
-            $table->string('tuk');
+            $table->integer('asosiasi')->nullable();
+            $table->string('tuk')->nullable();
             $table->string('kta')->nullable();
-            $table->integer('jenis_permohonan');
+            $table->integer('jenis_permohonan')->nullable();
             $table->string('berita_acara_vv')->nullable();
             $table->text('surat_permohonan')->nullable();
             $table->text('surat_pengantar_pemohonan_asosiasi')->nullable();
             $table->text('sertifikat_skk')->nullable();
             $table->text('self_asesmen_apl')->nullable();
-            $table->string('no_registrasi_asosiasi')->nullable();
+            // $table->string('no_registrasi_asosiasi')->nullable();
             $table->string('klasifikasi');
-            $table->integer('deleted_at')->nullable();
+            // $table->integer('deleted_at')->nullable();
             $table->timestamps();
 
             $table->foreign('id_izin')->references('id_izin')->on('personals')->onDelete('cascade');

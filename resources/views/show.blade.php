@@ -1,3 +1,67 @@
+@php
+  $jenjangs = [
+      '1' => 'SD',
+      '2' => 'SMP',
+      '3' => 'SMA',
+      '4' => 'D1',
+      '5' => 'D2',
+      '6' => 'D3',
+      '7' => 'D4',
+      '8' => 'S1',
+      '9' => 'S2',
+      '10' => 'S3',
+      '11' => 'Profesi',
+      '12' => 'D4 Terapan',
+      '13' => 'S1 Terapan',
+      '14' => 'S2 Terapan',
+      '15' => 'S3 Terapan',
+      '16' => 'SMK Plus',
+      '17' => 'SMK/STM',
+      '18' => 'S2 & Spesialis 1',
+      '19' => 'S3 & Spesialis 2',
+      '99' => 'Non Pendidikan',
+  ];
+  $propinsis = [
+      '11' => 'Aceh',
+      '12' => 'Sumatera Utara',
+      '13' => 'Sumatera Barat',
+      '14' => 'Riau',
+      '15' => 'Jambi',
+      '16' => 'Sumatera Selatan',
+      '17' => 'Bengkulu',
+      '18' => 'Lampung',
+      '19' => 'Kepulauan Bangka Belitung',
+      '21' => 'Kepulauan Riau',
+      '31' => 'DKI Jakarta',
+      '32' => 'Jawa Barat',
+      '33' => 'Jawa Tengah',
+      '34' => 'DI Yogyakarta',
+      '35' => 'Jawa Timur',
+      '36' => 'Banten',
+      '51' => 'Bali',
+      '52' => 'Nusa Tenggara Barat',
+      '53' => 'Nusa Tenggara Timur',
+      '61' => 'Kalimantan Barat',
+      '62' => 'Kalimantan Tengah',
+      '63' => 'Kalimantan Selatan',
+      '64' => 'Kalimantan Timur',
+      '65' => 'Kalimantan Utara',
+      '71' => 'Sulawesi Utara',
+      '72' => 'Sulawesi Tengah',
+      '73' => 'Sulawesi Selatan',
+      '74' => 'Sulawesi Tenggara',
+      '75' => 'Gorontalo',
+      '76' => 'Sulawesi Barat',
+      '81' => 'Maluku',
+      '82' => 'Maluku Utara',
+      '91' => 'Papua Barat',
+      '94' => 'Papua',
+  ];
+  
+@endphp
+
+
+
 <style>
   table {
     width: 100%;
@@ -51,9 +115,82 @@
     text-decoration: none;
     cursor: pointer;
   }
+
+  h1 {
+    text-align: center;
+  }
 </style>
 
+<h1>DATA KLASIFIKASI KUALIFIKASI</h1>
+<table>
+  <tbody>
+    @foreach ($klasifikasikualifikasis as $klasifikasikualifikasi)
+      <tr>
+        <th>LSP</th>
+        @if ($klasifikasikualifikasi->lsp === 16)
+          <td>LSP Gatensi Karya Konstruksi</td>
+        @endif
+      </tr>
+      <tr>
+        <th>Subklasifikasi</th>
+        @if ($klasifikasikualifikasi->subklasifikasi === 'SI01')
+          <td>Gedung</td>
+        @endif
+      </tr>
+      <tr>
+        <th>Kualifikasi</th>
+        <td>{{ $klasifikasikualifikasi->kualifikasi }}</td>
+      </tr>
+      <tr>
+        <th>Jabatan Kerja</th>
+        @if ($klasifikasikualifikasi->jabatan_kerja === 'SI012027')
+          <td>Pelaksana Lapangan Pekerjaan Gedung</td>
+        @endif
+      </tr>
+      <tr>
+        <th>Jenjang</th>
+        <td>{{ $klasifikasikualifikasi->jenjang }}</td>
+      </tr>
+      <tr>
+        <th>Asosiasi</th>
+        @if ($klasifikasikualifikasi->asosiasi === 187)
+          <td>GATENSI</td>
+        @endif
+      </tr>
+      <tr>
+        <th>KTA</th>
+        @if ($klasifikasikualifikasi->kta === '')
+          <td> - </td>
+        @else
+          <td> {{ $klasifikasikualifikasi->kta }} </td>
+        @endif
+      </tr>
+      <tr>
+        <th>TUK</th>
+        <td>{{ $klasifikasikualifikasi->tuk }}</td>
+      </tr>
+      <tr>
+        <th>Jenis Permohonan</th>
+        <td>{{ $klasifikasikualifikasi->jenis_permohonan }}</td>
+      </tr>
+      <tr>
+        <th>No. Registrasi Asosiasi</th>
+        <td>{{ $klasifikasikualifikasi->no_registrasi_asosiasi }}</td>
+      </tr>
+      <tr>
+        <th>Klasifikasi</th>
+        <td>{{ $klasifikasikualifikasi->klasifikasi }}</td>
+      </tr>
+      {{-- <tr>
+        <th>No. Registrasi</th>
+        <td>{{ $proyek->no_registrasi }}</td>
+      </tr> --}}
+    @endforeach
+  </tbody>
+</table>
 
+
+<h1>DATA PERSONAL</h1>
 <table>
   <tbody>
     @foreach ($personals as $personal)
@@ -103,7 +240,7 @@
       </tr>
       <tr>
         <th>Propinsi</th>
-        <td>{{ $personal->propinsi }}</td>
+        <td>{{ $propinsis[$personal->propinsi] ?? '' }}</td>
       </tr>
       <tr>
         <th>Kabupaten</th>
@@ -129,6 +266,117 @@
 
   </tbody>
 </table>
+
+<h1>DATA PENDIDIKAN</h1>
+<table>
+  <tbody>
+    @foreach ($pendidikans as $pendidikan)
+      <tr>
+        <th>Nama Sekolah</th>
+        <td>{{ $pendidikan->nama_sekolah_perguruan_tinggi }}</td>
+      </tr>
+      <tr>
+        <th>Program Studi</th>
+        <td>{{ $pendidikan->program_studi }}</td>
+      </tr>
+      <tr>
+        <th>No. Ijazah</th>
+        <td>{{ $pendidikan->no_ijazah }}</td>
+      </tr>
+      <tr>
+        <th>Tahun Lulus</th>
+        <td>{{ $pendidikan->tahun_lulus }}</td>
+      </tr>
+      <tr>
+        <th>Jenjang</th>
+        <td>{{ $jenjangs[$pendidikan->jenjang] ?? '' }}</td>
+      </tr>
+      <tr>
+        <th>Alamat</th>
+        <td>{{ $pendidikan->alamat }}</td>
+      </tr>
+      <tr>
+        <th>Negara</th>
+        <td>{{ $pendidikan->negara }}</td>
+      </tr>
+      <tr>
+        <th>Provinsi</th>
+        <td>{{ $propinsis[$pendidikan->propinsi] }}</td>
+      </tr>
+      <tr>
+        <th>Kabupaten</th>
+        <td>{{ $pendidikan->kabupaten }}</td>
+      </tr>
+      <tr>
+        <th>Scan Ijazah</th>
+        <td><a href="#" onclick="openModal('{{ $pendidikan->scan_ijazah_legalisir }}')">View</td>
+      </tr>
+      <tr>
+        <th>Surat Keterangan</th>
+        <td><a href="#" onclick="openModal('{{ $pendidikan->scan_surat_keterangan }}')">View</td>
+      </tr>
+    @endforeach
+
+  </tbody>
+</table>
+
+<h1>DATA PROYEK</h1>
+<table>
+  <tbody>
+    @foreach ($proyeks as $proyek)
+      <tr>
+        <th>Nama Proyek</th>
+        <td>{{ $proyek->nama_proyek }}</td>
+      </tr>
+      <tr>
+        <th>Lokasi Proyek</th>
+        <td>{{ $propinsis[$proyek->lokasi_proyek] }}</td>
+      </tr>
+      <tr>
+        <th>Tanggal Awal</th>
+        <td>{{ $proyek->tanggal_awal }}</td>
+      </tr>
+      <tr>
+        <th>Tanggal Akhir</th>
+        <td>{{ $proyek->tanggal_akhir }}</td>
+      </tr>
+      <tr>
+        <th>Jabatan</th>
+        <td>{{ $proyek->jabatan }}</td>
+      </tr>
+      <tr>
+        <th>Nilai Proyek</th>
+        <td>{{ $proyek->nilai_proyek }}</td>
+      </tr>
+      <tr>
+        <th>Surat Referensi Kerja</th>
+        <td><a href="#" onclick="openModal('{{ $proyek->surat_referensi }}')">View</td>
+      </tr>
+      <tr>
+        <th>Jenis Pengalaman</th>
+        <td>{{ $proyek->jenis_pengalaman }}</td>
+      </tr>
+      <tr>
+        <th>Pemberi Kerja</th>
+        <td>{{ $proyek->pemberi_kerja }}</td>
+      </tr>
+      <tr>
+        <th>NIK</th>
+        <td>{{ $proyek->nik }}</td>
+      </tr>
+      {{-- <tr>
+        <th>No. Registrasi</th>
+        <td>{{ $proyek->no_registrasi }}</td>
+      </tr> --}}
+    @endforeach
+
+  </tbody>
+</table>
+
+
+
+
+
 
 
 <div id="pdfModal" class="modal">

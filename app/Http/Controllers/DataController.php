@@ -24,7 +24,7 @@ class DataController extends Controller
         $id_izin = $request->input('id_izin');
 
         // Fetch data from the API
-        $url = 'https://siki.pu.go.id/siki-api/v1/permohonan-skk/' . $id_izin;
+        $url = 'https://siki.pu.go.id/siki-api/v1/permohonan-skk-balai/' . $id_izin;
 
         $response = Http::withHeaders([
             'Content-Type' => 'application/json',
@@ -162,9 +162,9 @@ class DataController extends Controller
                     'surat_pengantar_pemohonan_asosiasi' => $klasifikasikualifikasi['surat_pengantar_pemohonan_asosiasi'],
                     'sertifikat_skk' => $klasifikasikualifikasi['sertifikat_skk'],
                     'self_asesmen_apl' => $klasifikasikualifikasi['self_asesmen_apl'],
-                    'no_registrasi_asosiasi' => $klasifikasikualifikasi['no_registrasi_asosiasi'],
+                    // 'no_registrasi_asosiasi' => $klasifikasikualifikasi['no_registrasi_asosiasi'],
                     'klasifikasi' => $klasifikasikualifikasi['klasifikasi'],
-                    'deleted_at' => $klasifikasikualifikasi['deleted_at'],
+                    // 'deleted_at' => $klasifikasikualifikasi['deleted_at'],
                 ]);
             }
 

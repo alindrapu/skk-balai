@@ -15,6 +15,8 @@
     <input type="text" name="id_izin" placeholder="Enter ID Izin">
     <button type="submit">Get Data</button>
   </form>
+
+  <button><a href="/data">Verifikasi Permohonan</button>
 </body>
 
 </html>
