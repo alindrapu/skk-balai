@@ -310,7 +310,7 @@
       </tr>
       <tr>
         <th>Pas Foto</th>
-        <td><img src="{{ $personal->pas_foto }}" alt="Pas Foto" width="150" height="200"></td>
+        <td><a href="#" onclick="openModal('{{ $personal->pas_foto }}')"> View</td>
       </tr>
     @endforeach
 

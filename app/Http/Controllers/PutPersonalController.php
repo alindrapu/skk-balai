@@ -41,10 +41,10 @@ class PutPersonalController extends Controller
 
 
             //Store Files using the FTP Driver
-            // $ktpFilePath = $ktpFile->storeAs('files/balai/ktp', $idIzin . '.' . $ktpFile->extension(), 'ftp');
+            // $ktpFilePath = $ktpFile->storeAs('files/balai/ktp', $idIzin . '.' . $ktpFile->getClientOriginalExtension(), 'ftp');
             // $suratPernyataanFilePath = null;
-            // $fileNpwpFilePath = $fileNpwpFile->storeAs('files/balai/file_npwp' . $idIzin . '.' . $fileNpwpFile->extension(), 'ftp');
-            // $pasFotoFilePath = $pasFotoFile->storeAs('files/balai/pas_foto' . $idIzin . '.' . $pasFotoFile->extension(), 'ftp');
+            // $fileNpwpFilePath = $fileNpwpFile->storeAs('files/balai/file_npwp' . $idIzin . '.' . $fileNpwpFile->getClientOriginalExtension(), 'ftp');
+            // $pasFotoFilePath = $pasFotoFile->storeAs('files/balai/pas_foto' . $idIzin . '.' . $pasFotoFile->getClientOriginalExtension(), 'ftp');
 
             $idIzin = Str::slug($id_izin);
 
@@ -116,42 +116,10 @@ class PutPersonalController extends Controller
             }
 
             //Generate the file URLs
-            $ktpUrl = 'https://lspgatensi.id/files/balai/ktp/' . $idIzin;
+            $ktpUrl = 'https://lspgatensi.id/files/balai/ktp/' . $idIzin . '.' . 'pdf';
             $suratPernyataanUrl = null;
-            $fileNpwpUrl = 'https://lspgatensi.id/files/balai/file_npwp/' . $idIzin;
-            $pasFotoUrl = 'https://lspgatensi.id/files/balai/pas_foto/' . $idIzin;
-
-            // Create and save the Personal model within the transaction
-            $personal = Personal::where('id_izin', $id_izin)->first();
-
-            if ($personal) {
-                $personal->alamat = $request->input('alamat');
-                $personal->negara = $request->input('negara');
-                $personal->kodepos = $request->input('kodepos');
-
-                // Check if the URLs are available and update them only if they exist
-                if ($ktpUrl) {
-                    $personal->ktp = $ktpUrl;
-                }
-                if ($suratPernyataanUrl) {
-                    $personal->surat_pernyataan_kebenaran_data = $suratPernyataanUrl;
-                }
-                if ($fileNpwpUrl) {
-                    $personal->file_npwp = $fileNpwpUrl;
-                }
-                if ($pasFotoUrl) {
-                    $personal->pas_foto = $pasFotoUrl;
-                }
-
-                $personal->update();
-
-                // Data has been updated successfully
-            } else {
-                // The record with the given 'id_izin' does not exist, handle the error
-                // You can throw an exception, log an error, or take appropriate action
-                // For example:
-                throw new Exception('Record not found.');
-            }
+            $fileNpwpUrl = 'https://lspgatensi.id/files/balai/file_npwp/' . $idIzin . '.' . 'pdf';
+            $pasFotoUrl = 'https://lspgatensi.id/files/balai/pas_foto/' . $idIzin . '.' . 'jpg';
 
             // Making API Request
             $apiData = [
@@ -210,11 +178,30 @@ class PutPersonalController extends Controller
                 return response()->json(['error' => 'Failed to process data', 'message' => $e->getMessage()], 500);
             }
 
+            // Create and save the Personal model within the transaction
+            $personal = Personal::where('id_izin', $id_izin)->first();
+
+            if ($personal) {
+                $personal->alamat = $apiData['alamat'];
+                $personal->negara = $apiData['negara'];
+                $personal->kodepos = $apiData['kodepos'];
+                $personal->ktp = $apiData['ktp'];
+                $personal->surat_pernyataan_kebenaran_data = $apiData['surat_pernyataan_kebenaran_data'];
+                $personal->file_npwp = $apiData['file_npwp'];
+                $personal->pas_foto = $apiData['pas_foto'];
+                $personal->save();
+            } else {
+                // Handle the case when the record is not found
+                // You can create a new record or throw an exception based on your requirements
+                // For example:
+                throw new Exception("Personal record not found");
+            }
+
 
             DB::commit();
 
             return response()->json([
-                'message' => 'Sukses'
+                'message', 'Sukses'
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
