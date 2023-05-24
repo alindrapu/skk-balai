@@ -63,6 +63,56 @@
 
 
 <style>
+  .my-form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  .form-control-file {
+    padding-top: 4px;
+  }
+
+  .btn {
+    display: inline-block;
+    padding: 8px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+  }
+
+  .btn:hover {
+    background-color: #0056b3;
+    color: #fff;
+  }
+
   table {
     width: 100%;
     border-collapse: collapse;
@@ -373,10 +423,49 @@
   </tbody>
 </table>
 
+<h1>INPUT DATA PERSONAL</h1>
+<form class="my-form" action="{{ route('storePersonal', ['id_izin' => $id_izin]) }}" method="POST"
+  enctype="multipart/form-data">
+  @csrf
 
+  <div class="form-group">
+    <label for="alamat">Alamat:</label>
+    <input type="text" name="alamat" id="alamat" class="form-control" required>
+  </div>
 
+  <div class="form-group">
+    <label for="negara">Negara:</label>
+    <input type="text" name="negara" id="negara" class="form-control" required>
+  </div>
 
+  <div class="form-group">
+    <label for="kodepos">Kode Pos:</label>
+    <input type="text" name="kodepos" id="kodepos" class="form-control" required>
+  </div>
 
+  <div class="form-group">
+    <label for="ktp">KTP:</label>
+    <input type="file" name="ktp" id="ktp" class="form-control-file" required>
+  </div>
+
+  <div class="form-group">
+    <label for="surat_pernyataan_kebenaran_data">Surat Pernyataan Kebenaran Data:</label>
+    <input type="file" name="surat_pernyataan_kebenaran_data" id="surat_pernyataan_kebenaran_data"
+      class="form-control-file">
+  </div>
+
+  <div class="form-group">
+    <label for="file_npwp">File NPWP:</label>
+    <input type="file" name="file_npwp" id="file_npwp" class="form-control-file">
+  </div>
+
+  <div class="form-group">
+    <label for="pas_foto">Pas Foto:</label>
+    <input type="file" name="pas_foto" id="pas_foto" class="form-control-file" required>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 
 
 <div id="pdfModal" class="modal">

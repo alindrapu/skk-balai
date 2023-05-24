@@ -11,6 +11,12 @@ use App\Models\Pendidikan;
 use App\Models\Proyek;
 use App\Models\SertifikatSuket;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use GuzzleHttp\Client;
+
+
+
+
 
 class DataController extends Controller
 {
