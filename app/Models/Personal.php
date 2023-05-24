@@ -55,4 +55,8 @@ class Personal extends Model
     {
         return $this->hasMany(SertifikatSuket::class, 'id_izin');
     }
+    public function klasifikasi_kualifikasis()
+    {
+        return $this->hasMany(KlasifikasiKualifikasi::class, 'id_izin');
+    }
 }

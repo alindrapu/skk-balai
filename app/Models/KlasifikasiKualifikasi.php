@@ -19,6 +19,7 @@ class KlasifikasiKualifikasi extends Model
         'created',
         'creator',
         'data_id',
+        'lsp',
         'subklasifikasi',
         'kualifikasi',
         'jabatan_kerja',

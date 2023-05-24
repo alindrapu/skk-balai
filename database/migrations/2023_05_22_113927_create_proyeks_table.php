@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('proyeks', function (Blueprint $table) {
             $table->string('id_izin');
             $table->integer('id_proyek');
-            $table->date('updated');
-            $table->date('created');
-            $table->string('creator');
+            $table->date('updated')->nullable();
+            $table->date('created')->nullable();
+            $table->string('creator')->nullable();
             $table->integer('data_id');
             $table->string('nama_proyek');
             $table->string('lokasi_proyek');

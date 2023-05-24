@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KlasifikasiKualifikasi;
 use App\Models\Pelatihan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -128,14 +129,42 @@ class DataController extends Controller
                 SertifikatSuket::create([
                     'id_izin' => $id_izin,
                     'id_sertifikat_suket' => $sertifikatsuket['id'],
+                    'updated' => $sertifikatsuket['updated'],
                     'created' => $sertifikatsuket['created'],
                     'creator' => $sertifikatsuket['creator'],
-                    'data_id' => $sertifikatsuket['data_id'],
                     'nama_sertifikat_surket' => $sertifikatsuket['nama_sertifikat_surket'],
                     'penerbit' => $sertifikatsuket['penerbit'],
                     'tanggal_mulai' => $sertifikatsuket['tanggal_mulai'],
                     'tanggal_selesai' => $sertifikatsuket['tanggal_selesai'],
                     'file_sertifikat' => $sertifikatsuket['file_sertifikat'],
+                ]);
+            }
+
+            foreach ($data['klasifikasi_kualifikasi'] as $klasifikasikualifikasi) {
+                KlasifikasiKualifikasi::create([
+                    'id_izin' => $id_izin,
+                    'updated' => $klasifikasikualifikasi['updated'],
+                    'id_klasifikasi_kualifikasi' => $klasifikasikualifikasi['id'],
+                    'created' => $klasifikasikualifikasi['created'],
+                    'creator' => $klasifikasikualifikasi['creator'],
+                    'data_id' => $klasifikasikualifikasi['data_id'],
+                    'lsp' => $klasifikasikualifikasi['lsp'],
+                    'subklasifikasi' => $klasifikasikualifikasi['subklasifikasi'],
+                    'kualifikasi' => $klasifikasikualifikasi['kualifikasi'],
+                    'jabatan_kerja' => $klasifikasikualifikasi['jabatan_kerja'],
+                    'jenjang' => $klasifikasikualifikasi['jenjang'],
+                    'asosiasi' => $klasifikasikualifikasi['asosiasi'],
+                    'kta' => $klasifikasikualifikasi['kta'],
+                    'tuk' => $klasifikasikualifikasi['tuk'],
+                    'jenis_permohonan' => $klasifikasikualifikasi['jenis_permohonan'],
+                    'berita_acara_vv' => $klasifikasikualifikasi['berita_acara_vv'],
+                    'surat_permohonan' => $klasifikasikualifikasi['surat_permohonan'],
+                    'surat_pengantar_pemohonan_asosiasi' => $klasifikasikualifikasi['surat_pengantar_pemohonan_asosiasi'],
+                    'sertifikat_skk' => $klasifikasikualifikasi['sertifikat_skk'],
+                    'self_asesmen_apl' => $klasifikasikualifikasi['self_asesmen_apl'],
+                    'no_registrasi_asosiasi' => $klasifikasikualifikasi['no_registrasi_asosiasi'],
+                    'klasifikasi' => $klasifikasikualifikasi['klasifikasi'],
+                    'deleted_at' => $klasifikasikualifikasi['deleted_at'],
                 ]);
             }
 
@@ -148,5 +177,19 @@ class DataController extends Controller
             // Log or handle the exception
             return redirect()->back()->with('error', 'Error storing data.');
         }
+    }
+
+    public function showData(Request $request)
+    {
+        $id_izin = $request->input('id_izin');
+
+        $personals = Personal::where('id_izin', $id_izin)->get();
+        $pendidikans = Pendidikan::where('id_izin', $id_izin)->get();
+        $proyeks = Proyek::where('id_izin', $id_izin)->get();
+        $pelatihans = Pelatihan::where('id_izin', $id_izin)->get();
+        $sertifikatsukets = SertifikatSuket::where('id_izin', $id_izin)->get();
+        $klasifikasikualifikasis = KlasifikasiKualifikasi::where('id_izin', $id_izin)->get();
+
+        return view('show', compact('id_izin', 'personals', 'pendidikans', 'proyeks', 'pelatihans', 'sertifikatsukets', 'klasifikasikualifikasis'));
     }
 }

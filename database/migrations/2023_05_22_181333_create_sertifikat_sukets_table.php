@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('creator');
             $table->string('nama_sertifikat_surket')->nullable();
             $table->string('penerbit')->nullable();
-            $table->date('tanggal_mulai')->nullable();
-            $table->date('tanggal_selesai')->nullable();
+            $table->string('tanggal_mulai')->nullable();
+            $table->string('tanggal_selesai')->nullable();
             $table->text('file_sertifikat')->nullable();
             $table->timestamps();
 
