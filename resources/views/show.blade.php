@@ -61,7 +61,6 @@
 @endphp
 
 
-
 <style>
   .my-form {
     max-width: 400px;
@@ -239,7 +238,7 @@
   </tbody>
 </table>
 
-
+{{-- Show Data Personal --}}
 <h1>DATA PERSONAL</h1>
 <table>
   <tbody>
@@ -317,6 +316,75 @@
   </tbody>
 </table>
 
+{{-- Verifikasi Button --}}
+<form class="my-form" action="{{ route('hitVerifikasi', ['id_izin' => $id_izin]) }}" method="POST">
+  @csrf
+  <button type="submit" class="btn btn-primary">Verifikasi
+  </button>
+</form>
+
+{{-- Validasi Button --}}
+<form class="my-form" action="{{ route('hitValidasi', ['id_izin' => $id_izin]) }}" method="POST">
+  @csrf
+  <button type="submit" class="btn btn-primary">Validasi
+  </button>
+</form>
+
+{{-- Form Input Data Personal --}}
+<h1>INPUT DATA PERSONAL</h1>
+<form class="my-form" action="{{ route('storePersonal', ['id_izin' => $id_izin]) }}" method="POST"
+  enctype="multipart/form-data">
+  @csrf
+
+  <div class="form-group">
+    <label for="alamat">Alamat:</label>
+    <input type="text" name="alamat" id="alamat" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="negara">Negara:</label>
+    <input type="text" name="negara" id="negara" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="kodepos">Kode Pos:</label>
+    <input type="text" name="kodepos" id="kodepos" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="ktp">KTP:</label>
+    <input type="file" name="ktp" id="ktp" class="form-control-file" required>
+  </div>
+
+  <div class="form-group">
+    <label for="surat_pernyataan_kebenaran_data">Surat Pernyataan Kebenaran Data:</label>
+    <input type="file" name="surat_pernyataan_kebenaran_data" id="surat_pernyataan_kebenaran_data"
+      class="form-control-file">
+  </div>
+
+  <div class="form-group">
+    <label for="file_npwp">File NPWP:</label>
+    <input type="file" name="file_npwp" id="file_npwp" class="form-control-file">
+  </div>
+
+  <div class="form-group">
+    <label for="pas_foto">Pas Foto:</label>
+    <input type="file" name="pas_foto" id="pas_foto" class="form-control-file" required>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{{-- Form Input Data Registrasi --}}
+<h1>INPUT DATA REGISTRASI</h1>
+<form class="my-form" action="{{ route('storeRegistrasi', ['id_izin' => $id_izin]) }}" method="POST"
+  enctype="multipart/form-data">
+  @csrf
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
+{{-- Show Data Pendidikan --}}
 <h1>DATA PENDIDIKAN</h1>
 <table>
   <tbody>
@@ -370,6 +438,7 @@
   </tbody>
 </table>
 
+{{-- Show Data Proyek --}}
 <h1>DATA PROYEK</h1>
 <table>
   <tbody>
@@ -423,49 +492,33 @@
   </tbody>
 </table>
 
-<h1>INPUT DATA PERSONAL</h1>
-<form class="my-form" action="{{ route('storePersonal', ['id_izin' => $id_izin]) }}" method="POST"
-  enctype="multipart/form-data">
-  @csrf
 
-  <div class="form-group">
-    <label for="alamat">Alamat:</label>
-    <input type="text" name="alamat" id="alamat" class="form-control" required>
-  </div>
 
-  <div class="form-group">
-    <label for="negara">Negara:</label>
-    <input type="text" name="negara" id="negara" class="form-control" required>
-  </div>
 
-  <div class="form-group">
-    <label for="kodepos">Kode Pos:</label>
-    <input type="text" name="kodepos" id="kodepos" class="form-control" required>
-  </div>
 
-  <div class="form-group">
-    <label for="ktp">KTP:</label>
-    <input type="file" name="ktp" id="ktp" class="form-control-file" required>
-  </div>
 
-  <div class="form-group">
-    <label for="surat_pernyataan_kebenaran_data">Surat Pernyataan Kebenaran Data:</label>
-    <input type="file" name="surat_pernyataan_kebenaran_data" id="surat_pernyataan_kebenaran_data"
-      class="form-control-file">
-  </div>
 
-  <div class="form-group">
-    <label for="file_npwp">File NPWP:</label>
-    <input type="file" name="file_npwp" id="file_npwp" class="form-control-file">
-  </div>
 
-  <div class="form-group">
-    <label for="pas_foto">Pas Foto:</label>
-    <input type="file" name="pas_foto" id="pas_foto" class="form-control-file" required>
-  </div>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 <div id="pdfModal" class="modal">
