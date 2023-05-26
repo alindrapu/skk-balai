@@ -80,7 +80,14 @@ class PostProyekController extends Controller
                     ],
                     'json' => $apiData,
                 ]);
+                $responseBody = $response->getBody()->getContents();
+                $responseData = json_decode($responseBody, true); // Decode the JSON response
 
+                // // $id = $responseData['id'];
+                // $created = $responseData['created'];
+                // $creator = $responseData['creator'];
+                // $dataID = $responseData['data_id'];
+                // $updated = $responseData['updated'];
                 Log::info('Sukses mengirim request');
             } catch (RequestException $e) {
                 $statusCode = $e->getResponse()->getStatusCode();

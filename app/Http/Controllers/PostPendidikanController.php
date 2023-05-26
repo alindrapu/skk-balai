@@ -19,7 +19,6 @@ class PostPendidikanController extends Controller
     {
         try {
             DB::beginTransaction();
-            $validateData = $request->validate([]);
 
             $idIzin = Str::slug('id_izin');
 
@@ -48,6 +47,9 @@ class PostPendidikanController extends Controller
                 if ($loggedIn) {
                     //Set Passive mode if needed
                     ftp_pasv($ftpConnection, true);
+
+                    $scanIjazahFile = $request->file('scan_ijazah_legalisir');
+                    $scanSuketFile = $request->file('scan_surat_keterangan');
 
                     // Store Files using the FTP Driver
                     $scanIjazahFile = null;
