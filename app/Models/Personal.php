@@ -11,8 +11,11 @@ class Personal extends Model
 
     protected $table = 'personals';
 
+    protected $primaryKey = 'id_izin';
+
 
     protected $fillable = [
+        // 'id',
         'id_izin',
         'id_pemohon',
         'updated',

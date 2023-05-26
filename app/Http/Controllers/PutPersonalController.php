@@ -196,8 +196,6 @@ class PutPersonalController extends Controller
                 // For example:
                 throw new Exception("Personal record not found");
             }
-
-
             DB::commit();
 
             return response()->json([

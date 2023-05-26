@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('klasifikasi_kualifikasis', function (Blueprint $table) {
             $table->string('id_izin');
-            $table->id();
+            $table->increments('id');
             $table->integer('id_klasifikasi_kualifikasi');
             $table->date('updated')->nullable();
             $table->date('created');

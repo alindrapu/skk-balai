@@ -28,8 +28,6 @@ class HitStatus extends Controller
                 ],
                 'json' => $apiData,
             ]);
-
-            return redirect()->back()->with('success', 'Berhasil Verifikasi Data');
         } catch (RequestException $e) {
             // Handle the 422 Unprocessable Entity response error
             $statusCode = $e->getResponse()->getStatusCode();

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\HitStatus;
+use App\Http\Controllers\PostPendidikanController;
+use App\Http\Controllers\PostProyekController;
 use App\Http\Controllers\PutPersonalController;
 use App\Http\Controllers\PutRegistrasi;
 use App\Http\Controllers\VerifikasiController;
@@ -28,3 +30,9 @@ Route::post('/validasi/{id_izin}', [HitStatus::class, 'hitValidasi'])->name('hit
 
 // Tombol Update Registrasi
 Route::post('/registrasi/{id_izin}', [PutRegistrasi::class, 'storeRegistrasi'])->name('storeRegistrasi');
+
+// Tombol Update Pendidikan
+Route::post('store-pendidikan/{id_izin}', [PostPendidikanController::class, 'storePendidikan'])->name('storePendidikan');
+
+// Tombol Update Proyek
+Route::post('store-proyek/{id_izin}', [PostProyekController::class, 'storeProyek'])->name('storeProyek');

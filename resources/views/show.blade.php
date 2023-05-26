@@ -240,82 +240,83 @@
 
 {{-- Show Data Personal --}}
 <h1>DATA PERSONAL</h1>
-<table>
-  <tbody>
-    @foreach ($personals as $personal)
-      <tr>
-        <th>ID Izin</th>
-        <td>{{ $personal->id_izin }}</td>
-      </tr>
-      <tr>
-        <th>NIK</th>
-        <td>{{ $personal->nik }}</td>
-      </tr>
-      <tr>
-        <th>Nama</th>
-        <td>{{ $personal->nama }}</td>
-      </tr>
-      <tr>
-        <th>Tempat Lahir</th>
-        <td>{{ $personal->tempat_lahir }}</td>
-      </tr>
-      <tr>
-        <th>Tanggal Lahir</th>
-        <td>{{ $personal->tanggal_lahir }}</td>
-      </tr>
-      <tr>
-        <th>Email</th>
-        <td>{{ $personal->email }}</td>
-      </tr>
-      <tr>
-        <th>Telepon</th>
-        <td>{{ $personal->telepon }}</td>
-      </tr>
-      <tr>
-        <th>NPWP</th>
-        <td>{{ $personal->npwp }}</td>
-      </tr>
-      <tr>
-        <th>Jenis Kelamin</th>
-        <td>{{ $personal->jenis_kelamin }}</td>
-      </tr>
-      <tr>
-        <th>Alamat</th>
-        <td>{{ $personal->alamat }}</td>
-      </tr>
-      <tr>
-        <th>Negara</th>
-        <td>{{ $personal->negara }}</td>
-      </tr>
-      <tr>
-        <th>Propinsi</th>
-        <td>{{ $propinsis[$personal->propinsi] ?? '' }}</td>
-      </tr>
-      <tr>
-        <th>Kabupaten</th>
-        <td>{{ $personal->kabupaten }}</td>
-      </tr>
-      <tr>
-        <th>Kodepos</th>
-        <td>{{ $personal->kodepos }}</td>
-      </tr>
-      <tr>
-        <th>KTP</th>
-        <td><a href="#" onclick="openModal('{{ $personal->ktp }}')"> View</td>
-      </tr>
-      <tr>
-        <th>File NPWP</th>
-        <td><a href="#" onclick="openModal('{{ $personal->file_npwp }}')"> View</td>
-      </tr>
-      <tr>
-        <th>Pas Foto</th>
-        <td><a href="#" onclick="openModal('{{ $personal->pas_foto }}')"> View</td>
-      </tr>
-    @endforeach
+<div class="container my-5">
+  <table>
+    <tbody>
+      @foreach ($personals as $personal)
+        <tr>
+          <th>ID Izin</th>
+          <td>{{ $personal->id_izin }}</td>
+        </tr>
+        <tr>
+          <th>NIK</th>
+          <td>{{ $personal->nik }}</td>
+        </tr>
+        <tr>
+          <th>Nama</th>
+          <td>{{ $personal->nama }}</td>
+        </tr>
+        <tr>
+          <th>Tempat Lahir</th>
+          <td>{{ $personal->tempat_lahir }}</td>
+        </tr>
+        <tr>
+          <th>Tanggal Lahir</th>
+          <td>{{ $personal->tanggal_lahir }}</td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td>{{ $personal->email }}</td>
+        </tr>
+        <tr>
+          <th>Telepon</th>
+          <td>{{ $personal->telepon }}</td>
+        </tr>
+        <tr>
+          <th>NPWP</th>
+          <td>{{ $personal->npwp }}</td>
+        </tr>
+        <tr>
+          <th>Jenis Kelamin</th>
+          <td>{{ $personal->jenis_kelamin }}</td>
+        </tr>
+        <tr>
+          <th>Alamat</th>
+          <td>{{ $personal->alamat }}</td>
+        </tr>
+        <tr>
+          <th>Negara</th>
+          <td>{{ $personal->negara }}</td>
+        </tr>
+        <tr>
+          <th>Propinsi</th>
+          <td>{{ $propinsis[$personal->propinsi] ?? '' }}</td>
+        </tr>
+        <tr>
+          <th>Kabupaten</th>
+          <td>{{ $personal->kabupaten }}</td>
+        </tr>
+        <tr>
+          <th>Kodepos</th>
+          <td>{{ $personal->kodepos }}</td>
+        </tr>
+        <tr>
+          <th>KTP</th>
+          <td><a href="#" onclick="openModal('{{ $personal->ktp }}')"> View</td>
+        </tr>
+        <tr>
+          <th>File NPWP</th>
+          <td><a href="#" onclick="openModal('{{ $personal->file_npwp }}')"> View</td>
+        </tr>
+        <tr>
+          <th>Pas Foto</th>
+          <td><a href="#" onclick="openModal('{{ $personal->pas_foto }}')"> View</td>
+        </tr>
+      @endforeach
 
-  </tbody>
-</table>
-
+    </tbody>
+  </table>
+</div>
 {{-- Verifikasi Button --}}
 <form class="my-form" action="{{ route('hitVerifikasi', ['id_izin' => $id_izin]) }}" method="POST">
   @csrf
@@ -438,6 +439,57 @@
   </tbody>
 </table>
 
+{{-- Form Input Data Pendidikan --}}
+<h1>INPUT DATA PENDIDIKAN</h1>
+<form class="my-form" action="{{ route('storePendidikan', ['id_izin' => $id_izin]) }}" method="POST"
+  enctype="multipart/form-data">
+  @csrf
+
+  <div class="form-group">
+    <label for="nama_sekolah_perguruan_tinggi">Nama Sekolah/ Perguruan Tinggi:</label>
+    <input type="text" name="nama_sekolah_perguruan_tinggi" id="nama_sekolah_perguruan_tinggi" class="form-control"
+      required>
+  </div>
+
+  <div class="form-group">
+    <label for="program_studi">Program Studi:</label>
+    <input type="text" name="program_studi" id="program_studi" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="no_ijazah">No Ijazah:</label>
+    <input type="text" name="no_ijazah" id="no_ijazah" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="tahun_lulus">Tahun Lulus:</label>
+    <input type="text" name="tahun_lulus" id="tahun_lulus" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="jenjang">Jenjang: S1 (8), SMK (17), SMA (3)</label>
+    <input type="number" name="jenjang" id="jenjang" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="alamat">Alamat</label>
+    <input type="text" name="alamat" id="alamat" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="scan_ijazah_legalisir">Scan Ijazah:</label>
+    <input type="file" name="scan_ijazah_legalisir" id="scan_ijazah_legalisir" class="form-control-file">
+  </div>
+
+  <div class="form-group">
+    <label for="scan_surat_keterangan">Scan Surat Keterangan:</label>
+    <input type="file" name="scan_surat_keterangan" id="scan_surat_keterangan" class="form-control-file">
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+
 {{-- Show Data Proyek --}}
 <h1>DATA PROYEK</h1>
 <table>
@@ -491,6 +543,59 @@
 
   </tbody>
 </table>
+
+<h1>INPUT DATA PENDIDIKAN</h1>
+<form class="my-form" action="{{ route('storeProyek', ['id_izin' => $id_izin]) }}" method="POST"
+  enctype="multipart/form-data">
+  @csrf
+
+  <div class="form-group">
+    <label for="nama_proyek">Nama Proyek</label>
+    <input type="text" name="nama_proyek" id="nama_proyek" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="lokasi_proyek">Lokasi Proyek: isi 35 (Jawa Timur)</label>
+    <input type="text" name="lokasi_proyek" id="lokasi_proyek" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="tanggal_awal">Tanggal Awal:</label>
+    <input type="date" name="tanggal_awal" id="tanggal_awal" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="tanggal_akhir">Tanggal Akhir:</label>
+    <input type="date" name="tanggal_akhir" id="tanggal_akhir" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="jabatan">Jabatan:</label>
+    <input type="text" name="jabatan" id="jabatan" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="nilai_proyek">Nilai Proyek</label>
+    <input type="text" name="nilai_proyek" id="nilai_proyek" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="surat_referensi">Surat Referensi Kerja:</label>
+    <input type="file" name="surat_referensi" id="surat_referensi" class="form-control-file">
+  </div>
+
+  {{-- <div class="form-group">
+    <label for="jenis_pengalaman">Jenis Pengalamn</label>
+    <input type="text" name="jenis_pengalaman" id="jenis_pengalaman" class="form-control" required>
+  </div> --}}
+
+  <div class="form-group">
+    <label for="pemberi_kerja">Pemberi Kerja</label>
+    <input type="text" name="pemberi_kerja" id="pemberi_kerja" class="form-control" required>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
 
 
 
