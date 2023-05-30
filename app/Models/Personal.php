@@ -63,4 +63,8 @@ class Personal extends Model
     {
         return $this->hasMany(KlasifikasiKualifikasi::class, 'id_izin');
     }
+    public function jadwal_bnsp_table()
+    {
+        return $this->hasMany(JadwalBNSP::class, 'id_izin');
+    }
 }

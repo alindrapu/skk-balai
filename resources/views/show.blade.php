@@ -170,6 +170,9 @@
   }
 </style>
 
+
+
+
 <h1>DATA KLASIFIKASI KUALIFIKASI</h1>
 <table>
   <tbody>
@@ -597,7 +600,26 @@
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
+<h1>INPUT JADWAL</h1>
 
+<form class="my-form" action="{{ route('buatJadwal', ['id_izin' => $id_izin]) }}" method="POST"
+  enctype="multipart/form-data">
+  @csrf
+
+  <div class="form-group">
+    <label for="jadwal_id">ID Jadwal BNSP</label>
+    <input type="number" name="jadwal_id" id="jadwal_id" class="form-control" required>
+  </div>
+
+  <div class="form-group">
+    <label for="asesor_id">ID Asesor BNSP</label>
+    <input type="number" name="asesor_id" id="asesor_id" class="form-control" required>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+
+
+</form>
 
 
 

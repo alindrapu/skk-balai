@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\HitStatus;
+use App\Http\Controllers\JadwalBnspController;
 use App\Http\Controllers\PostPendidikanController;
 use App\Http\Controllers\PostProyekController;
 use App\Http\Controllers\PutPersonalController;
 use App\Http\Controllers\PutRegistrasi;
+use App\Http\Controllers\SertifikatController;
 use App\Http\Controllers\VerifikasiController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,3 +38,15 @@ Route::post('store-pendidikan/{id_izin}', [PostPendidikanController::class, 'sto
 
 // Tombol Update Proyek
 Route::post('store-proyek/{id_izin}', [PostProyekController::class, 'storeProyek'])->name('storeProyek');
+
+//Buat Jadwal
+Route::post('buat-jadwal/{id_izin}', [JadwalBnspController::class, 'buatJadwal'])->name('buatJadwal');
+
+Route::get('show-data/{id_izin}', function () {
+  return view('show');
+});
+
+
+
+// Generate Certificate
+Route::get('/generate-sertifikat/{id_izin}', SertifikatController::class, 'generate')->name('generate-sertifikat');

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('proyeks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('id_izin');
-            $table->integer('id_proyek');
+            $table->string('id_proyek');
             $table->date('updated')->nullable();
             $table->date('created')->nullable();
             $table->string('creator')->nullable();
