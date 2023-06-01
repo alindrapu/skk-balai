@@ -16,7 +16,7 @@ class PutRegistrasi extends Controller
         $apiEndpoint = 'https://siki.pu.go.id/siki-api/v1/registrasi-skk-balai/' . $id_izin;
 
         $apiData = [
-            'tuk' => 2487,
+            'tuk' => (int)$request->input('tuk'),
             'jenis_permohonan' => '1',
             'sertifikat_skk' => '',
             'self_asesmen_apl' => ''

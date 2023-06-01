@@ -62,17 +62,36 @@
 
 
 <style>
+    body{
+    background-color: #112D4E;
+  }
+  *{
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif;
+  }
+  form.my-form{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+  form.my-form:first-child{
+    margin-top: 90px;
+  }
   .my-form {
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background-color: #f8f8f8;
+    background-color: #DBE2EF;
+  }
+  .forms{
+    padding-bottom: 20px;
   }
 
   .form-group {
     margin-bottom: 15px;
+    width: 100%;
   }
 
   label {
@@ -113,8 +132,13 @@
   }
 
   table {
-    width: 100%;
+    width: 640px;
     border-collapse: collapse;
+    margin: auto;
+  }
+  label{
+    font-weight: 600;
+    color: black;
   }
 
   th,
@@ -122,12 +146,17 @@
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    color: #fff;
   }
 
   img {
     max-width: 350px;
     object-fit: cover;
     border-radius: 5px;
+  }
+  .forms{
+    display: flex;
+    flex-wrap: wrap;
   }
 
   /* Modal styles */
@@ -167,12 +196,62 @@
 
   h1 {
     text-align: center;
+    color: #fff;
+  }
+  .container{
+    display: flex;
+    align-items: flex-start;
+    height: max-content;
+    width: 90%;
+    padding: 50px 20px;
+    background-color: #3F72AF;
+    border-radius: 10px;
+    margin: 30px auto;
+  }
+  .data{
+    width: 70%;
+  }
+  .proyek{
+    align-items: flex-start;
+  }
+  .pendidikan{
+    align-items: flex-start;
+  }
+  .bodyproyek{
+    margin-top: 30px;
+  }
+  input{
+    color: black;
+  }
+  tbody{
+    border: none;
+    border-radius: 30px;
+  }
+  th{
+    background: #DBE2EF;
+    color: black;
+    width: 180px;
+    border-color: rgba(0, 0, 0, 0.189);
+    font-weight: 600;
+  }
+  td{
+    background: #F9F7F7;
+    color: black;
+    border-color: rgba(0, 0, 0, 0.189);
+    
+  }
+  th:last-child{
+    border-color: transparent;
+  }
+  .input{
+    padding-right: 20px;
   }
 </style>
 
 
 
-
+<div class="container">
+<div class="data personal ">
 <h1>DATA KLASIFIKASI KUALIFIKASI</h1>
 <table>
   <tbody>
@@ -243,7 +322,7 @@
 
 {{-- Show Data Personal --}}
 <h1>DATA PERSONAL</h1>
-<div class="container my-5">
+<div class=" my-5">
   <table>
     <tbody>
       @foreach ($personals as $personal)
@@ -320,8 +399,11 @@
     </tbody>
   </table>
 </div>
-{{-- Verifikasi Button --}}
-<form class="my-form" action="{{ route('hitVerifikasi', ['id_izin' => $id_izin]) }}" method="POST">
+</div>
+<div class="input personal">
+
+  {{-- Verifikasi Button --}}
+  <form class="my-form" action="{{ route('hitVerifikasi', ['id_izin' => $id_izin]) }}" method="POST">
   @csrf
   <button type="submit" class="btn btn-primary">Verifikasi
   </button>
@@ -339,7 +421,7 @@
 <form class="my-form" action="{{ route('storePersonal', ['id_izin' => $id_izin]) }}" method="POST"
   enctype="multipart/form-data">
   @csrf
-
+  <div class="forms">
   <div class="form-group">
     <label for="alamat">Alamat:</label>
     <input type="text" name="alamat" id="alamat" class="form-control" required>
@@ -349,12 +431,12 @@
     <label for="negara">Negara:</label>
     <input type="text" name="negara" id="negara" class="form-control" required>
   </div>
-
+  
   <div class="form-group">
     <label for="kodepos">Kode Pos:</label>
     <input type="text" name="kodepos" id="kodepos" class="form-control" required>
   </div>
-
+  
   <div class="form-group">
     <label for="ktp">KTP:</label>
     <input type="file" name="ktp" id="ktp" class="form-control-file" required>
@@ -363,20 +445,22 @@
   <div class="form-group">
     <label for="surat_pernyataan_kebenaran_data">Surat Pernyataan Kebenaran Data:</label>
     <input type="file" name="surat_pernyataan_kebenaran_data" id="surat_pernyataan_kebenaran_data"
-      class="form-control-file">
+    class="form-control-file">
   </div>
-
+  
   <div class="form-group">
     <label for="file_npwp">File NPWP:</label>
     <input type="file" name="file_npwp" id="file_npwp" class="form-control-file">
   </div>
-
+  
   <div class="form-group">
     <label for="pas_foto">Pas Foto:</label>
     <input type="file" name="pas_foto" id="pas_foto" class="form-control-file" required>
   </div>
-
+</div>
+<div>
   <button type="submit" class="btn btn-primary">Submit</button>
+</div>
 </form>
 
 {{-- Form Input Data Registrasi --}}
@@ -384,18 +468,26 @@
 <form class="my-form" action="{{ route('storeRegistrasi', ['id_izin' => $id_izin]) }}" method="POST"
   enctype="multipart/form-data">
   @csrf
+  <div class="form-group">
+    <label for="tuk">TUK:</label>
+    <input type="text" name="tuk" id="tuk" class="form-control" required>
+  </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
+</div>
+</div>
 
+<div class="container pendidikan">
+  <div class="data pendidikan">
 {{-- Show Data Pendidikan --}}
 <h1>DATA PENDIDIKAN</h1>
 <table>
   <tbody>
     @foreach ($pendidikans as $pendidikan)
-      <tr>
-        <th>Nama Sekolah</th>
-        <td>{{ $pendidikan->nama_sekolah_perguruan_tinggi }}</td>
+    <tr>
+      <th>Nama Sekolah</th>
+      <td>{{ $pendidikan->nama_sekolah_perguruan_tinggi }}</td>
       </tr>
       <tr>
         <th>Program Studi</th>
@@ -441,13 +533,15 @@
 
   </tbody>
 </table>
-
+  </div>
+<div class="input pendidikan">
 {{-- Form Input Data Pendidikan --}}
 <h1>INPUT DATA PENDIDIKAN</h1>
+
 <form class="my-form" action="{{ route('storePendidikan', ['id_izin' => $id_izin]) }}" method="POST"
   enctype="multipart/form-data">
   @csrf
-
+  <div class="forms">
   <div class="form-group">
     <label for="nama_sekolah_perguruan_tinggi">Nama Sekolah/ Perguruan Tinggi:</label>
     <input type="text" name="nama_sekolah_perguruan_tinggi" id="nama_sekolah_perguruan_tinggi" class="form-control"
@@ -488,17 +582,21 @@
     <label for="scan_surat_keterangan">Scan Surat Keterangan:</label>
     <input type="file" name="scan_surat_keterangan" id="scan_surat_keterangan" class="form-control-file">
   </div>
-
+  </div>
+<div>
   <button type="submit" class="btn btn-primary">Submit</button>
+</div>
 </form>
-
-
+</div>
+</div>
+<div class="container proyek">
+  <div class="data proyek">
 {{-- Show Data Proyek --}}
 <h1>DATA PROYEK</h1>
 <table>
-  <tbody>
+  <tbody >
     @foreach ($proyeks as $proyek)
-      <tr>
+      <tr class="bodyproyek">
         <th>Nama Proyek</th>
         <td>{{ $proyek->nama_proyek }}</td>
       </tr>
@@ -520,7 +618,7 @@
       </tr>
       <tr>
         <th>Nilai Proyek</th>
-        <td>{{ $proyek->nilai_proyek }}</td>
+        <td>{{ number_format($proyek->nilai_proyek, 0, '.', '.') }}</td>
       </tr>
       <tr>
         <th>Surat Referensi Kerja</th>
@@ -546,37 +644,39 @@
 
   </tbody>
 </table>
-
-<h1>INPUT DATA PENDIDIKAN</h1>
+</div>
+<div class="input proyek">
+<h1>INPUT DATA PROYEK</h1>
 <form class="my-form" action="{{ route('storeProyek', ['id_izin' => $id_izin]) }}" method="POST"
   enctype="multipart/form-data">
   @csrf
+  <div class="forms">
 
   <div class="form-group">
     <label for="nama_proyek">Nama Proyek</label>
     <input type="text" name="nama_proyek" id="nama_proyek" class="form-control" required>
   </div>
-
+  
   <div class="form-group">
     <label for="lokasi_proyek">Lokasi Proyek: isi 35 (Jawa Timur)</label>
     <input type="text" name="lokasi_proyek" id="lokasi_proyek" class="form-control" required>
   </div>
-
+  
   <div class="form-group">
     <label for="tanggal_awal">Tanggal Awal:</label>
     <input type="date" name="tanggal_awal" id="tanggal_awal" class="form-control" required>
   </div>
-
+  
   <div class="form-group">
     <label for="tanggal_akhir">Tanggal Akhir:</label>
     <input type="date" name="tanggal_akhir" id="tanggal_akhir" class="form-control" required>
   </div>
-
+  
   <div class="form-group">
     <label for="jabatan">Jabatan:</label>
     <input type="text" name="jabatan" id="jabatan" class="form-control" required>
   </div>
-
+  
   <div class="form-group">
     <label for="nilai_proyek">Nilai Proyek</label>
     <input type="text" name="nilai_proyek" id="nilai_proyek" class="form-control" required>
@@ -586,17 +686,18 @@
     <label for="surat_referensi">Surat Referensi Kerja:</label>
     <input type="file" name="surat_referensi" id="surat_referensi" class="form-control-file">
   </div>
-
+  
   {{-- <div class="form-group">
     <label for="jenis_pengalaman">Jenis Pengalamn</label>
     <input type="text" name="jenis_pengalaman" id="jenis_pengalaman" class="form-control" required>
   </div> --}}
-
+  
   <div class="form-group">
     <label for="pemberi_kerja">Pemberi Kerja</label>
     <input type="text" name="pemberi_kerja" id="pemberi_kerja" class="form-control" required>
   </div>
-
+</div>
+  
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
@@ -605,22 +706,26 @@
 <form class="my-form" action="{{ route('buatJadwal', ['id_izin' => $id_izin]) }}" method="POST"
   enctype="multipart/form-data">
   @csrf
+  <div class="forms">
 
   <div class="form-group">
     <label for="jadwal_id">ID Jadwal BNSP</label>
     <input type="number" name="jadwal_id" id="jadwal_id" class="form-control" required>
   </div>
-
+  
   <div class="form-group">
     <label for="asesor_id">ID Asesor BNSP</label>
     <input type="number" name="asesor_id" id="asesor_id" class="form-control" required>
   </div>
-
+</div>
+<div>
   <button type="submit" class="btn btn-primary">Submit</button>
+</div>
 
 
 </form>
-
+</div>
+</div>
 
 
 
