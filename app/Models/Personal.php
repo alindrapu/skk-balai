@@ -67,4 +67,8 @@ class Personal extends Model
     {
         return $this->hasMany(JadwalBNSP::class, 'id_izin');
     }
+    public function data_pencatatans()
+    {
+        return $this->hasMany(DataPencatatan::class, 'id_izin');
+    }
 }

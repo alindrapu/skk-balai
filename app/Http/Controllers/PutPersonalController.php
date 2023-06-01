@@ -13,9 +13,6 @@ use Illuminate\Support\Facades\Storage;
 use GuzzleHttp\Exception\RequestException;
 
 
-
-
-
 class PutPersonalController extends Controller
 {
     public function storePersonal(Request $request, $id_izin)

@@ -14,8 +14,8 @@ class SertifikatController extends Controller
     {
 
 
-        $klasifikasiKualifikasi = DB::table('klasifikasi_kualifikasis')->where('id_izin', $id_izin)->select('jabatan_kerja', 'jenjang');
-        $personal = DB::table('personals')->where('id_izin', $id_izin)->where('nama', 'pas_foto');
+        $klasifikasiKualifikasi = DB::table('klasifikasi_kualifikasis')->where('id_izin', $id_izin)->select('jabatan_kerja', 'jenjang')->first();
+        $personal = DB::table('personals')->where('id_izin', $id_izin)->where('pas_foto')->first();
 
 
 
@@ -26,7 +26,7 @@ class SertifikatController extends Controller
             'no_blangko_bnsp' => $dataPencatatan->nomor_blangko_bnsp,
             'certificateNumber' => $dataPencatatan->nomor_sertifikat_lengkap,
             'jenjang' => $dataPencatatan->jenjang,
-            'nama' => $dataPencatatan->nama,
+            'nama' => $personal->nama,
             'kualifikasi' => $dataPencatatan->kualifikasi,
             'kualifikasi_en' => $dataPencatatan->kualifikasi_en,
             'subklasifikasi' => $dataPencatatan->subklasifikasi,
@@ -36,6 +36,7 @@ class SertifikatController extends Controller
             'qr_signature' => $dataPencatatan->qr_signature,
             'tanggal_ditetapkan' => $dataPencatatan->tanggal_ditetapkan,
             'tanggal_masa_berlaku' => $dataPencatatan->tanggal_masa_berlaku,
+            'pas_foto' => $personal->pas_foto,
             'qr' => $dataPencatatan->qr,
             'nomor_registrasi_lpjk' => $dataPencatatan->nomor_registrasi_lpjk,
 
