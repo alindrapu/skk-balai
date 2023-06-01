@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Exception;
-use Psy\Command\WhereamiCommand;
 
 class SertifikatController extends Controller
 {

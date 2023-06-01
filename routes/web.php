@@ -46,5 +46,7 @@ Route::get('show-data/{id_izin}', function () {
   return view('show');
 });
 
+
+
 // Generate Certificate
 // Route::get('/generate-sertifikat/{id_izin}', SertifikatController::class, 'generate')->name('generate-sertifikat');
