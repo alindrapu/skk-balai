@@ -87,7 +87,7 @@ input{
   border-color: white;
   background-color: white;
   border-radius: 5px;
-  color: rgb(255, 255, 255);
+  color: black;
 }
 button{
   border-color: white;
