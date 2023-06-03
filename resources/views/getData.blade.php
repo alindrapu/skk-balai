@@ -29,7 +29,7 @@
   }
   
  .kotak{
-  width: 50%;
+  width: 40%;
   height: 60%;
   background: #3F72AF;
   border-radius: 10px;
@@ -167,10 +167,11 @@ img{
 
 <div class="container">
 <div class="kotak">
-<div class="form-id">
   <div class="logo">
     <img src="https://lspgatensi.id/images/logo-white.webp" alt="Logo">
   </div>
+<div class="form-id">
+  
   <form action="{{ route('storeData') }}" method="POST">
     @csrf
     <input class="input" type="text" name="id_izin" placeholder="ID Izin">
