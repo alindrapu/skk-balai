@@ -132,7 +132,7 @@
   }
 
   table {
-    width: 640px;
+    width: 740px;
     border-collapse: collapse;
     margin: auto;
   }
@@ -201,15 +201,14 @@
   .container{
     display: flex;
     align-items: flex-start;
+    justify-content: space-evenly;
     height: max-content;
-    width: 90%;
-    padding: 50px 20px;
+    width: 80%;
+    padding: 50px 20px 90px;
+
     background-color: #3F72AF;
     border-radius: 10px;
     margin: 30px auto;
-  }
-  .data{
-    width: 70%;
   }
   .proyek{
     align-items: flex-start;

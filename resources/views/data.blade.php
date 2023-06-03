@@ -43,7 +43,7 @@
   border-color: white;
   background-color: white;
   border-radius: 5px;
-  color: aliceblue;
+  color: black;
   margin: auto;
  }
  button{
