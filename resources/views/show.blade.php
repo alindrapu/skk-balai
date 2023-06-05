@@ -74,9 +74,9 @@
     justify-content: center;
     margin-bottom: 40px;
   }
-  form.my-form:first-child{
+  /* form.my-form:first-child{
     margin-top: 90px;
-  }
+  } */
   .my-form {
     max-width: 400px;
     margin: 0 auto;
@@ -199,12 +199,8 @@
     color: #fff;
   }
   .container{
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-evenly;
-    height: max-content;
     width: 80%;
-    padding: 50px 20px 90px;
+    padding: 32px 20px 90px;
 
     background-color: #3F72AF;
     border-radius: 10px;
@@ -245,13 +241,38 @@
   .input{
     padding-right: 20px;
   }
+  .logo-kecil{
+    width: min-content;
+    width: 90px;
+  }
+  .header{
+    display: flex;
+    align-items: center;
+    height: max-content;
+    flex-wrap: wrap;
+    width: max-content;
+    padding-bottom: 30px;
+    column-gap: 47px;
+    margin-left: 90px;
+  }
+  .isi{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-evenly;
+  }
 </style>
 
 
 
 <div class="container">
+  <div class="header">
+    <img class="logo-kecil" src="./images/logodoang.png" alt="Logo"  />
+    <h1>DATA KLASIFIKASI KUALIFIKASI</h1>
+  
+  </div>
+<div class="isi">
 <div class="data personal ">
-<h1>DATA KLASIFIKASI KUALIFIKASI</h1>
+  
 <table>
   <tbody>
     @foreach ($klasifikasikualifikasis as $klasifikasikualifikasi)
@@ -474,6 +495,7 @@
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
+</div>
 </div>
 </div>
 
