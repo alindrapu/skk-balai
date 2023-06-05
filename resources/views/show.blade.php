@@ -279,7 +279,6 @@
 
 
 <div class="container">
-<<<<<<< HEAD
   <div class="header">
     <img class="logo-kecil" src="./images/logodoang.png" alt="Logo"  />
     <h1>DATA KLASIFIKASI KUALIFIKASI</h1>
@@ -348,74 +347,6 @@
         <td>{{ $klasifikasikualifikasi->klasifikasi }}</td>
       </tr>
       {{-- <tr>
-=======
-  <div class="data personal ">
-    <h1>DATA KLASIFIKASI KUALIFIKASI</h1>
-
-    <table>
-      <tbody>
-        @foreach ($klasifikasikualifikasis as $klasifikasikualifikasi)
-          <tr>
-            <th>LSP</th>
-            @if ($klasifikasikualifikasi->lsp === 16)
-              <td>LSP Gatensi Karya Konstruksi</td>
-            @endif
-          </tr>
-          <tr>
-            <th>Subklasifikasi</th>
-            @if ($klasifikasikualifikasi->subklasifikasi === 'SI01')
-              <td>Gedung</td>
-            @endif
-          </tr>
-          <tr>
-            <th>Kualifikasi</th>
-            <td>{{ $klasifikasikualifikasi->kualifikasi }}</td>
-          </tr>
-          <tr>
-            <th>Jabatan Kerja</th>
-            @if ($klasifikasikualifikasi->jabatan_kerja)
-              <?php
-              $jabatanKerja = \App\Models\MasterJabatanKerja::where('id_jabatan_kerja', $klasifikasikualifikasi->jabatan_kerja)->first();
-              ?>
-              <td>{{ $jabatanKerja ? $jabatanKerja->jabatan_kerja : '' }}</td>
-            @endif
-          </tr>
-          <tr>
-            <th>Jenjang</th>
-            <td>{{ $klasifikasikualifikasi->jenjang }}</td>
-          </tr>
-          <tr>
-            <th>Asosiasi</th>
-            @if ($klasifikasikualifikasi->asosiasi === 187)
-              <td>GATENSI</td>
-            @endif
-          </tr>
-          <tr>
-            <th>KTA</th>
-            @if ($klasifikasikualifikasi->kta === '')
-              <td> - </td>
-            @else
-              <td> {{ $klasifikasikualifikasi->kta }} </td>
-            @endif
-          </tr>
-          <tr>
-            <th>TUK</th>
-            <td>{{ $klasifikasikualifikasi->tuk }}</td>
-          </tr>
-          <tr>
-            <th>Jenis Permohonan</th>
-            <td>{{ $klasifikasikualifikasi->jenis_permohonan }}</td>
-          </tr>
-          <tr>
-            <th>No. Registrasi Asosiasi</th>
-            <td>{{ $klasifikasikualifikasi->no_registrasi_asosiasi }}</td>
-          </tr>
-          <tr>
-            <th>Klasifikasi</th>
-            <td>{{ $klasifikasikualifikasi->klasifikasi }}</td>
-          </tr>
-          {{-- <tr>
->>>>>>> cee029bba21a2c764e7f083c672c37d88dbd7dca
         <th>No. Registrasi</th>
         <td>{{ $proyek->no_registrasi }}</td>
       </tr> --}}
