@@ -721,6 +721,16 @@
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
+
+
+
+    </form>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="jadwal">
     <h1>INPUT JADWAL</h1>
 
     <form class="my-form" action="{{ route('buatJadwal', ['id_izin' => $id_izin]) }}" method="POST"
@@ -741,6 +751,8 @@
       <div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </div>
+
+
     </form>
   </div>
 </div>
@@ -749,11 +761,6 @@
 <form class="my-form" action="{{ route('storeProyek', ['id_izin' => $id_izin]) }}" method="POST"
   enctype="multipart/form-data">
   <div class="forms">
-
-
-
-
-
 
 
 
