@@ -277,7 +277,15 @@
 </style>
 
 
+<div class="sidebar">
+  <img src="https://lspgatensi.id/images/logo-white.webp" alt="Logo">
+  <ul>
+    <li><a href="/">Tinjau Permohonan</a></li>
+    <li><a href="/data">Verifikasi</a></li>
+    <li><a href="">Jadwal</a></li>
+  </ul>
 
+</div>
 <div class="container">
   <div class="header">
     <img class="logo-kecil" src="./images/logodoang.png" alt="Logo"  />
