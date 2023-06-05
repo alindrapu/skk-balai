@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Exception;
 
+
 class SertifikatController extends Controller
 {
     public function generate(Request $request, $id_izin)
@@ -15,8 +16,6 @@ class SertifikatController extends Controller
 
         $klasifikasiKualifikasi = DB::table('klasifikasi_kualifikasis')->where('id_izin', $id_izin)->select('jabatan_kerja', 'jenjang')->first();
         $personal = DB::table('personals')->where('id_izin', $id_izin)->where('pas_foto')->first();
-
-
 
 
         $dataPencatatan = DB::table('data_pencatatans')->where('id_izin', $id_izin)->select('nomor_sertifikasi', 'nama', 'kualifikasi', 'kualifikasi_en', 'subklasifikasi', 'subklasifikasi_en', 'jabatan_kerja', 'jabatan_kerja_en', 'jenjang', 'nomor_sertifikat_lengkap', 'nomor_registrasi_lpjk', 'nomor_blangko_bnsp', 'tanggal_ditetapkan', 'tanggal_masa_berlaku', 'qr', 'qr_signature', 'ketua_pelaksana', 'ttd_ketua_pelaksana')->first();
@@ -69,7 +68,7 @@ class SertifikatController extends Controller
                 $htmlContentPath = null;
 
                 if ($htmlContent) {
-                    $htmlContentPath = '/balai/sertifikat/' . $certificateData['nomor_blangko_bnsp'] . '.html';
+                    $htmlContentPath = '/balai/sertifikat/' . $nomorBlangko . '.html';
                     ftp_put($ftpConnection, $htmlContentPath, $tempFile, FTP_BINARY);
                 }
 
