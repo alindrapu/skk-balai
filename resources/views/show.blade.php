@@ -76,6 +76,7 @@
     justify-content: center;
     margin-bottom: 40px;
   }
+
   /* form.my-form:first-child{
     margin-top: 90px;
   } */
@@ -203,7 +204,8 @@
     text-align: center;
     color: #fff;
   }
-  .container{
+
+  .container {
     width: 80%;
     padding: 32px 20px 90px;
 
@@ -255,11 +257,13 @@
   .input {
     padding-right: 20px;
   }
-  .logo-kecil{
+
+  .logo-kecil {
     width: min-content;
     width: 90px;
   }
-  .header{
+
+  .header {
     display: flex;
     align-items: center;
     height: max-content;
@@ -269,7 +273,8 @@
     column-gap: 47px;
     margin-left: 90px;
   }
-  .isi{
+
+  .isi {
     display: flex;
     align-items: flex-start;
     justify-content: space-evenly;
@@ -288,73 +293,80 @@
 </div>
 <div class="container">
   <div class="header">
-    <img class="logo-kecil" src="./images/logodoang.png" alt="Logo"  />
+    <img class="logo-kecil" src="./images/logodoang.png" alt="Logo" />
     <h1>DATA KLASIFIKASI KUALIFIKASI</h1>
-  
-  </div>
-<div class="isi">
-<div class="data personal ">
-  
-<table>
-  <tbody>
-    @foreach ($klasifikasikualifikasis as $klasifikasikualifikasi)
-      <tr>
-        <th>LSP</th>
-        @if ($klasifikasikualifikasi->lsp === 16)
-          <td>LSP Gatensi Karya Konstruksi</td>
-        @endif
-      </tr>
-      <tr>
-        <th>Subklasifikasi</th>
-        @if ($klasifikasikualifikasi->subklasifikasi === 'SI01')
-          <td>Gedung</td>
-        @endif
-      </tr>
-      <tr>
-        <th>Kualifikasi</th>
-        <td>{{ $klasifikasikualifikasi->kualifikasi }}</td>
-      </tr>
-      <tr>
-        <th>Jabatan Kerja</th>
-        @if ($klasifikasikualifikasi->jabatan_kerja === 'SI012027')
-          <td>Pelaksana Lapangan Pekerjaan Gedung</td>
-        @endif
-      </tr>
-      <tr>
-        <th>Jenjang</th>
-        <td>{{ $klasifikasikualifikasi->jenjang }}</td>
-      </tr>
-      <tr>
-        <th>Asosiasi</th>
-        @if ($klasifikasikualifikasi->asosiasi === 187)
-          <td>GATENSI</td>
-        @endif
-      </tr>
-      <tr>
-        <th>KTA</th>
-        @if ($klasifikasikualifikasi->kta === '')
-          <td> - </td>
-        @else
-          <td> {{ $klasifikasikualifikasi->kta }} </td>
-        @endif
-      </tr>
-      <tr>
-        <th>TUK</th>
-        <td>{{ $klasifikasikualifikasi->tuk }}</td>
-      </tr>
-      <tr>
-        <th>Jenis Permohonan</th>
-        <td>{{ $klasifikasikualifikasi->jenis_permohonan }}</td>
-      </tr>
-      <tr>
-        <th>No. Registrasi Asosiasi</th>
-        <td>{{ $klasifikasikualifikasi->no_registrasi_asosiasi }}</td>
-      </tr>
-      <tr>
-        <th>Klasifikasi</th>
-        <td>{{ $klasifikasikualifikasi->klasifikasi }}</td>
-      </tr>
-      {{-- <tr>
+
+    <table>
+      <tbody>
+        @foreach ($klasifikasikualifikasis as $klasifikasikualifikasi)
+          <tr>
+            <th>LSP</th>
+            @if ($klasifikasikualifikasi->lsp === 16)
+              <td>LSP Gatensi Karya Konstruksi</td>
+            @endif
+          </tr>
+          <tr>
+            <th>Subklasifikasi</th>
+            @if ($klasifikasikualifikasi->subklasifikasi)
+              <?php
+              $lspIdKlasifikasi = substr($klasifikasikualifikasi->subklasifikasi, 0, 2);
+              $lspSubKlasifikasiId = substr($klasifikasikualifikasi->subklasifikasi, 2);
+              
+              $subklasifikasi = \App\Models\MasterJabatanKerja::where('lsp_id_klasifikasi', $lspIdKlasifikasi)
+                  ->where('lsp_sub_klasifikasi_id', $lspSubKlasifikasiId)
+                  ->first();
+              ?>
+              <td>{{ $subklasifikasi ? $subklasifikasi->subklasifikasi : '' }}</td>
+            @endif
+          </tr>
+          <tr>
+            <th>Kualifikasi</th>
+            <td>{{ $klasifikasikualifikasi->kualifikasi }}</td>
+          </tr>
+          <tr>
+            <th>Jabatan Kerja</th>
+            @if ($klasifikasikualifikasi->jabatan_kerja)
+              <?php
+              $jabatanKerja = \App\Models\MasterJabatanKerja::where('id_jabatan_kerja', $klasifikasikualifikasi->jabatan_kerja)->first();
+              ?>
+              <td>{{ $jabatanKerja ? $jabatanKerja->jabatan_kerja : '' }}</td>
+            @endif
+          </tr>
+          <tr>
+            <th>Jenjang</th>
+            <td>{{ $klasifikasikualifikasi->jenjang }}</td>
+          </tr>
+          <tr>
+            <th>Asosiasi</th>
+            @if ($klasifikasikualifikasi->asosiasi === 187)
+              <td>GATENSI</td>
+            @endif
+          </tr>
+          <tr>
+            <th>KTA</th>
+            @if ($klasifikasikualifikasi->kta === '')
+              <td> - </td>
+            @else
+              <td> {{ $klasifikasikualifikasi->kta }} </td>
+            @endif
+          </tr>
+          <tr>
+            <th>TUK</th>
+            <td>{{ $klasifikasikualifikasi->tuk }}</td>
+          </tr>
+          <tr>
+            <th>Jenis Permohonan</th>
+            <td>{{ $klasifikasikualifikasi->jenis_permohonan }}</td>
+          </tr>
+          <tr>
+            <th>No. Registrasi Asosiasi</th>
+            <td>{{ $klasifikasikualifikasi->no_registrasi_asosiasi }}</td>
+          </tr>
+          <tr>
+            <th>Klasifikasi</th>
+            <td>{{ $klasifikasikualifikasi->klasifikasi }}</td>
+          </tr>
+          {{-- <tr>
         <th>No. Registrasi</th>
         <td>{{ $proyek->no_registrasi }}</td>
       </tr> --}}
