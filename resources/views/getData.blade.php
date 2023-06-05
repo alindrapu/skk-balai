@@ -179,12 +179,14 @@ img{
   </form>
   <br>
 </div>
-<div class="pembagi">
+{{-- <div class="pembagi">
   <h1>ATAU</h1>
-</div>
+</div> --}}
   
 <div class="verifikasi-but">
-  <button class="button-28"><a href="/data">Verifikasi Permohonan</button>
+  <a href="/data">
+    <button class="button-28">Verifikasi Permohonan</button>
+  </a>
   </div>
   </div>
   </div>

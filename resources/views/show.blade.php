@@ -700,6 +700,16 @@
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
+
+
+
+</form>
+</div>
+</div>
+
+
+<div class="container">
+<div class="jadwal">
 <h1>INPUT JADWAL</h1>
 
 <form class="my-form" action="{{ route('buatJadwal', ['id_izin' => $id_izin]) }}" method="POST"
@@ -720,16 +730,8 @@
 <div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </div>
-
-
-</form>
 </div>
 </div>
-
-
-
-
-
 
 
 
