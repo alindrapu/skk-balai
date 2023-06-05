@@ -281,8 +281,16 @@
           </tr>
           <tr>
             <th>Subklasifikasi</th>
-            @if ($klasifikasikualifikasi->subklasifikasi === 'SI01')
-              <td>Gedung</td>
+            @if ($klasifikasikualifikasi->subklasifikasi)
+              <?php
+              $lspIdKlasifikasi = substr($klasifikasikualifikasi->subklasifikasi, 0, 2);
+              $lspSubKlasifikasiId = substr($klasifikasikualifikasi->subklasifikasi, 2);
+              
+              $subklasifikasi = \App\Models\MasterJabatanKerja::where('lsp_id_klasifikasi', $lspIdKlasifikasi)
+                  ->where('lsp_sub_klasifikasi_id', $lspSubKlasifikasiId)
+                  ->first();
+              ?>
+              <td>{{ $subklasifikasi ? $subklasifikasi->subklasifikasi : '' }}</td>
             @endif
           </tr>
           <tr>
