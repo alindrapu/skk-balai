@@ -63,11 +63,26 @@
 
 <style>
   body {
-    background-color: #112D4E;
+    background-color: #27374D;
   }
 
   * {
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Ubuntu, sans-serif;
+  }
+
+  .content{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 84%;
+  }
+  section{
+    margin: 60px;
+    background-color: #526D82;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
   }
 
   form.my-form {
@@ -86,7 +101,7 @@
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 4px;
-    background-color: #DBE2EF;
+    background-color: #9DB2BF;
   }
 
   .forms {
@@ -138,7 +153,6 @@
   table {
     width: 740px;
     border-collapse: collapse;
-    margin: auto;
   }
 
   label {
@@ -205,14 +219,6 @@
     color: #fff;
   }
 
-  .container {
-    width: 80%;
-    padding: 32px 20px 90px;
-
-    background-color: #3F72AF;
-    border-radius: 10px;
-    margin: 30px auto;
-  }
 
   .proyek {
     align-items: flex-start;
@@ -236,7 +242,7 @@
   }
 
   th {
-    background: #DBE2EF;
+    background: #DDE6ED;
     color: black;
     width: 180px;
     border-color: rgba(0, 0, 0, 0.189);
@@ -268,10 +274,10 @@
     align-items: center;
     height: max-content;
     flex-wrap: wrap;
-    width: max-content;
     padding-bottom: 30px;
     column-gap: 47px;
-    margin-left: 90px;
+    margin-left: 115px;
+    width: 535px;
   }
 
   .isi {
@@ -279,24 +285,68 @@
     align-items: flex-start;
     justify-content: space-evenly;
   }
+
+  .sidebar {
+    width: 265px;
+    /* background-color: #f2f2f2; */
+    background-color: #526D82;
+    padding: 20px;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: larger;
+}
+
+.sidebar ul li a:hover {
+    color: white;
+    font-weight: bold;
+}
+
+.container{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding-bottom: 20px;
+}
 </style>
 
 
 <div class="sidebar">
-  <img src="https://lspgatensi.id/images/logo-white.webp" alt="Logo">
   <ul>
-    <li><a href="/">Tinjau Permohonan</a></li>
-    <li><a href="/data">Verifikasi</a></li>
-    <li><a href="">Jadwal</a></li>
+      <li><a href="/">Get Data</a></li>
+      <li><a href="/data">Verifikasi</a></li>
+      <li><a href="/idBuatJadwal">Buat Jadwal</a></li>
   </ul>
-
 </div>
-<div class="container">
-  <div class="header">
-    <img class="logo-kecil" src="./images/logodoang.png" alt="Logo" />
-    <h1>DATA KLASIFIKASI KUALIFIKASI</h1>
-
-    <table>
+<div class="content">
+  <section>
+    <div class="header">
+      <img class="logo-kecil" src="./images/logodoang.png" alt="Logo" />
+      <h1>DATA KLASIFIKASI KUALIFIKASI</h1>
+    </div>
+    <div class="container">
+      <div class="data personal">
+        <table>
       <tbody>
         @foreach ($klasifikasikualifikasis as $klasifikasikualifikasi)
           <tr>
@@ -372,11 +422,13 @@
       </tr> --}}
         @endforeach
       </tbody>
-    </table>
+        </table>
 
-    {{-- Show Data Personal --}}
-    <h1>DATA PERSONAL</h1>
-    <div class=" my-5">
+        {{-- Show Data Personal --}}
+        <div>
+    
+          <h1>DATA PERSONAL</h1>
+          <div class=" my-5">
       <table>
         <tbody>
           @foreach ($personals as $personal)
@@ -452,9 +504,11 @@
 
         </tbody>
       </table>
-    </div>
-  </div>
-  <div class="input personal">
+          </div>
+        </div>
+      </div>
+  
+      <div class="input personal">
 
     {{-- Verifikasi Button --}}
     <form class="my-form" action="{{ route('hitVerifikasi', ['id_izin' => $id_izin]) }}" method="POST">
@@ -529,12 +583,14 @@
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
-  </div>
-</div>
-</div>
+      </div>
+    </div>
+  </section>
 
-<div class="container pendidikan">
-  <div class="data pendidikan">
+
+<section>
+  <div class="container">
+    <div class="data pendidikan">
     {{-- Show Data Pendidikan --}}
     <h1>DATA PENDIDIKAN</h1>
     <table>
@@ -588,8 +644,8 @@
 
       </tbody>
     </table>
-  </div>
-  <div class="input pendidikan">
+    </div>
+    <div class="input pendidikan">
     {{-- Form Input Data Pendidikan --}}
     <h1>INPUT DATA PENDIDIKAN</h1>
 
@@ -642,10 +698,14 @@
         <button type="submit" class="btn btn-primary">Submit</button>
       </div>
     </form>
+    </div>
   </div>
-</div>
-<div class="container proyek">
-  <div class="data proyek">
+
+</section>
+
+<section>
+  <div class="container">
+    <div class="data proyek">
     {{-- Show Data Proyek --}}
     <h1>DATA PROYEK</h1>
     <table>
@@ -699,8 +759,8 @@
 
       </tbody>
     </table>
-  </div>
-  <div class="input proyek">
+    </div>
+    <div class="input proyek">
     <h1>INPUT DATA PROYEK</h1>
     <form class="my-form" action="{{ route('storeProyek', ['id_izin' => $id_izin]) }}" method="POST"
       enctype="multipart/form-data">
@@ -760,11 +820,15 @@
 
 
     </form>
+    </div>
   </div>
+
+</section>
+
 </div>
 
 
-<div class="container">
+{{-- <div class="container">
   <div class="jadwal">
     <h1>INPUT JADWAL</h1>
 
@@ -790,7 +854,7 @@
 
     </form>
   </div>
-</div>
+</div> --}}
 
 {{-- Generate Data Sertifikat --}}
 <form class="my-form" action="{{ route('storeProyek', ['id_izin' => $id_izin]) }}" method="POST"

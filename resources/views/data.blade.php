@@ -1,8 +1,7 @@
 <style>
-  body{
-    /* background: rgb(131,58,180);
-    background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(192,44,105,1) 49%, rgba(253,29,29,1) 100%); */
+ body{
     background-color: #DBE2EF;
+    overflow: hidden;
   }
   *{
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif;
@@ -53,56 +52,64 @@
   background: white;
   border-radius: 5px;
  }
- .kotak{
-  width: 50%;
-  height: 60%;
+
+  .sidebar {
+    width: 265px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+}
+
+.sidebar ul li a:hover {
+    color: #3F72AF;
+    font-weight: bold;
+}
+
+.kotak{
+  width: 90%;
+  height: 100%;
   background: #3F72AF;
-  border-radius: 10px;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   align-content: center;
-  position: relative;
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin: auto;
  }
- .kotak:before {
-    content: "";
-    z-index: -1;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: linear-gradient(14deg, #25234e 0%, #0400ff 100% );
-    transform: translate3d(0px, 20px, 0) scale(0.95);
-    filter: blur(20px);
-    opacity: var(0.7);
-    transition: opacity 0.3s;
-    border-radius: inherit;
-}
-
-/* 
-* Prevents issues when the parent creates a 
-* stacking context. (For example, using the transform
-* property )
-*/
-.kotak::after {
-    content: "";
-    z-index: -1;
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: inherit;
-    border-radius: inherit;
-}
-
-
         
 </style>
 
-<div class="container">
+<div class="sidebar">
+  <ul>
+      <li><a href="/">Get Data</a></li>
+      <li><a href="/data">Verifikasi</a></li>
+      <li><a href="/idBuatJadwal">Buat Jadwal</a></li>
+  </ul>
+</div>
+
+
   <div class="kotak">
     <div class="title">
       <h1>VERIFIKASI</h1>
@@ -117,5 +124,3 @@
         </div>
     </div>
   </div>
-</div>
-
