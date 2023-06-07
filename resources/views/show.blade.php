@@ -221,18 +221,6 @@
     text-align: center;
     color: #fff;
   }
-<<<<<<< HEAD
-
-=======
-  .container{
-    width: 80%;
-    padding: 32px 20px 90px;
-
-    background-color: #3F72AF;
-    border-radius: 10px;
-    margin: 30px auto;
-  }
->>>>>>> 40182f09cd42e00a103ef5f009ca175a8e6c1d85
 
   .proyek {
     align-items: flex-start;
@@ -349,7 +337,6 @@
       <li><a href="/idBuatJadwal">Buat Jadwal</a></li>
   </ul>
 </div>
-<<<<<<< HEAD
 <div class="content">
   <section>
     <div class="header">
@@ -429,77 +416,6 @@
             <td>{{ $klasifikasikualifikasi->klasifikasi }}</td>
           </tr>
           {{-- <tr>
-=======
-<div class="container">
-  <div class="header">
-    <img class="logo-kecil" src="./images/logodoang.png" alt="Logo"  />
-    <h1>DATA KLASIFIKASI KUALIFIKASI</h1>
-  
-  </div>
-<div class="isi">
-<div class="data personal ">
-  
-<table>
-  <tbody>
-    @foreach ($klasifikasikualifikasis as $klasifikasikualifikasi)
-      <tr>
-        <th>LSP</th>
-        @if ($klasifikasikualifikasi->lsp === 16)
-          <td>LSP Gatensi Karya Konstruksi</td>
-        @endif
-      </tr>
-      <tr>
-        <th>Subklasifikasi</th>
-        @if ($klasifikasikualifikasi->subklasifikasi === 'SI01')
-          <td>Gedung</td>
-        @endif
-      </tr>
-      <tr>
-        <th>Kualifikasi</th>
-        <td>{{ $klasifikasikualifikasi->kualifikasi }}</td>
-      </tr>
-      <tr>
-        <th>Jabatan Kerja</th>
-        @if ($klasifikasikualifikasi->jabatan_kerja === 'SI012027')
-          <td>Pelaksana Lapangan Pekerjaan Gedung</td>
-        @endif
-      </tr>
-      <tr>
-        <th>Jenjang</th>
-        <td>{{ $klasifikasikualifikasi->jenjang }}</td>
-      </tr>
-      <tr>
-        <th>Asosiasi</th>
-        @if ($klasifikasikualifikasi->asosiasi === 187)
-          <td>GATENSI</td>
-        @endif
-      </tr>
-      <tr>
-        <th>KTA</th>
-        @if ($klasifikasikualifikasi->kta === '')
-          <td> - </td>
-        @else
-          <td> {{ $klasifikasikualifikasi->kta }} </td>
-        @endif
-      </tr>
-      <tr>
-        <th>TUK</th>
-        <td>{{ $klasifikasikualifikasi->tuk }}</td>
-      </tr>
-      <tr>
-        <th>Jenis Permohonan</th>
-        <td>{{ $klasifikasikualifikasi->jenis_permohonan }}</td>
-      </tr>
-      <tr>
-        <th>No. Registrasi Asosiasi</th>
-        <td>{{ $klasifikasikualifikasi->no_registrasi_asosiasi }}</td>
-      </tr>
-      <tr>
-        <th>Klasifikasi</th>
-        <td>{{ $klasifikasikualifikasi->klasifikasi }}</td>
-      </tr>
-      {{-- <tr>
->>>>>>> 40182f09cd42e00a103ef5f009ca175a8e6c1d85
         <th>No. Registrasi</th>
         <td>{{ $proyek->no_registrasi }}</td>
       </tr> --}}
@@ -666,16 +582,9 @@
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
-<<<<<<< HEAD
       </div>
     </div>
   </section>
-=======
-  </div>
-</div>
-</div>
-</div>
->>>>>>> 40182f09cd42e00a103ef5f009ca175a8e6c1d85
 
 
 <section>
