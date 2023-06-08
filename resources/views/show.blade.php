@@ -310,6 +310,7 @@
     text-decoration: none;
     color: #3F72AF;
     font-size: larger;
+    transition: font-weight 0.1s ease-out;
 }
 
 .sidebar ul li a:hover {
