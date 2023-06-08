@@ -274,10 +274,13 @@
 
   .sidebar {
     width: 265px;
-    background-color: #f2f2f2;
+    /* background-color: #f2f2f2; */
+    background-color: white;
     padding: 20px;
-    height: 100%;
-    position: absolute;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    align-items: center;
     top: 0;
     left: 0;
     z-index: 1;
@@ -290,12 +293,14 @@
 }
 
 .sidebar ul li {
+    margin-top: 10px;
     margin-bottom: 10px;
 }
 
 .sidebar ul li a {
     text-decoration: none;
-    color: #333;
+    color: #3F72AF;
+    font-size: larger;
 }
 
 .sidebar ul li a:hover {
