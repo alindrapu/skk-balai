@@ -52,7 +52,6 @@
     height: 40px;
     width: 290px;
     border-color: white;
-    border-radius: 5px;
     font-size: 16px;
     color: #fff;
     margin-bottom: 30px;
@@ -168,9 +167,10 @@
   
   <form action="{{ route('storeData') }}" method="POST">
     @csrf
-    <input class="input" type="text" name="id_izin" placeholder="ID Izin">
-    <button type="submit">Get Data</button>
-  </form>
+    <div class="input">
+      <input type="text" name="id_izin" placeholder="ID Izin">
+      <button type="submit">Get Data</button>
+    </div>
   <br>
 </div>
 {{-- <div class="pembagi">
