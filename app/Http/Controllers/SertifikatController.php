@@ -91,4 +91,10 @@ class SertifikatController extends Controller
 
         return redirect()->back()->with('success', 'Certificate generated and stored successfully.');
     }
+    public function getToken(Request $request, $id_izin)
+    {
+        $id_izin = $request->input('id_izin');
+
+        $url = 'https://konstruksi.bnsp.go.id/api/v1/jadwal/blanko'
+    }
 }
