@@ -282,7 +282,7 @@
   }
 
   .sidebar {
-    width: 265px;
+    width: 105px;
     /* background-color: #f2f2f2; */
     background-color: white;
     padding: 20px;

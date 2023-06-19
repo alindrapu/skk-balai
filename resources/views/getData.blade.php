@@ -138,6 +138,15 @@
     top: 0;
     margin: auto;
   }
+/* 
+  .menus{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  li{
+    width: 100%;
+  } */
         
 </style>
 
@@ -151,9 +160,12 @@
       <img src="https://lspgatensi.id/images/logo-color.webp" alt="Logo" class="lsp">
     </div>
     <ul class="menus">
+        {{-- <li><a href="/"><p>Get Data</p></a></li>
+        <li><a href="/data"><p>Verifikasi</p></a></li>
+        <li><a href="/idBuatJadwal"><p>Buat Jadwal</p></a></li> --}}
         <li><a href="/">Get Data</a></li>
-        <li><a href="/data">Verifikasi</a></li>
-        <li><a href="/idBuatJadwal">Buat Jadwal</a></li>
+      <li><a href="/data">Verifikasi</a></li>
+      <li><a href="/idBuatJadwal">Buat Jadwal</a></li>
     </ul>
   </div>
 
