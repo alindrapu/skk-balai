@@ -331,7 +331,7 @@
     }
 
     #main {
-        padding-top: 170px;
+        /* padding-top: 170px; */
         padding-left: 110px;
     }
 
