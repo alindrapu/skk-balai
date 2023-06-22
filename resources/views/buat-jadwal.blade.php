@@ -284,65 +284,68 @@
     top: 0;
     left: 0;
     z-index: 1;
-}
+  }
 
-.sidebar ul {
+  .sidebar ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
-}
+  }
 
-.sidebar ul li {
+  .sidebar ul li {
     margin-top: 10px;
     margin-bottom: 10px;
-}
+  }
 
-.sidebar ul li a {
+  .sidebar ul li a {
     text-decoration: none;
     color: #3F72AF;
     font-size: larger;
     transition: font-weight 0.1s ease-out;
-}
+  }
 
-.sidebar ul li a:hover {
+  .sidebar ul li a:hover {
     color: #3F72AF;
     font-weight: bold;
-}
+  }
 </style>
 
 
 <div class="sidebar">
   <ul>
-      <li><a href="/">Get Data</a></li>
-      <li><a href="/data">Verifikasi</a></li>
-      <li><a href="/idBuatJadwal">Buat Jadwal</a></li>
+    <li><a href="/">Get Data</a></li>
+    <li><a href="/data">Verifikasi</a></li>
+    <li><a href="/idBuatJadwal">Buat Jadwal</a></li>
   </ul>
 </div>
 
 <div class="container">
-    <div class="jadwal">
-      <h1>INPUT JADWAL</h1>
-  
-      <form class="my-form" action="{{ route('storeJadwal') }}" method="POST"
-        enctype="multipart/form-data">
-        @csrf
-        <div class="forms">
-          <input type="hidden" name="id_izin" value={{ $id_izin }}>
-          <div class="form-group">
-            <label for="jadwal_id">ID Jadwal BNSP</label>
-            <input type="number" name="jadwal_id" id="jadwal_id" class="form-control" required>
-          </div>
-  
-          <div class="form-group">
-            <label for="asesor_id">ID Asesor BNSP</label>
-            <input type="number" name="asesor_id" id="asesor_id" class="form-control" required>
-          </div>
+  <div class="jadwal">
+    <h1>INPUT JADWAL</h1>
+
+    <form class="my-form" action="{{ route('storeJadwal') }}" method="POST" enctype="multipart/form-data">
+      @csrf
+      <div class="forms">
+        <input type="hidden" name="id_izin" value={{ $id_izin }}>
+        <div class="form-group">
+          <label for="jadwal_id">ID Jadwal BNSP</label>
+          <input type="number" name="jadwal_id" id="jadwal_id" class="form-control" required>
         </div>
-        <div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+
+        <div class="form-group">
+          <label for="asesor_id">ID Asesor BNSP</label>
+          <input type="number" name="asesor_id" id="asesor_id" class="form-control" required>
         </div>
-  
-  
-      </form>
-    </div>
+        <div class="form-group">
+          <label for="skema_id">ID Skema</label>
+          <input type="text" name="skema_id" id="skema_id" class="form-control" required>
+        </div>
+      </div>
+      <div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+
+
+    </form>
   </div>
+</div>

@@ -37,6 +37,7 @@ class JadwalBnspController extends Controller
         $provinsi_id = $personalsData->propinsi;
         $telepon = $personalsData->telepon;
         $email = $personalsData->email;
+        $skema_id = (int)$request->input('skema_id');
 
 
         // Retrieve values from the "pendidikans" table
@@ -73,7 +74,7 @@ class JadwalBnspController extends Controller
             "telepon" => $telepon,
             "email" => $email,
             "jenis_mohon" => 1,
-            "skema_id" => 63547,
+            "skema_id" => $skema_id,
             "keterangan" => "",
             "jenjang_id" => $jenjang_id,
             "prodi" => $prodi,
