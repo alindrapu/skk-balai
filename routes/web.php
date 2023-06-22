@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataController;
 use App\Http\Controllers\HitStatus;
 use App\Http\Controllers\JadwalBnspController;
@@ -9,18 +11,40 @@ use App\Http\Controllers\PutPersonalController;
 use App\Http\Controllers\PutRegistrasi;
 use App\Http\Controllers\SertifikatController;
 use App\Http\Controllers\VerifikasiController;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider and all of them will
+| be assigned to the "web" middleware group. Make something great!
+|
+*/
 
 
-Route::get('/', [DataController::class, 'index'])->name('getData');
-Route::post('/store-data', [DataController::class, 'store'])->name('storeData');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-
-Route::get('/data', function () {
-  return view('data');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+require __DIR__ . '/auth.php';
+
+Route::middleware('auth')->group(function () {
+    Route::get('/', [DataController::class, 'index'])->name('getData');
+    Route::post('/store-data', [DataController::class, 'store'])->name('storeData');
+    Route::get('/data', function () {
+        return view('data');
+    });
+});
+
 
 // Route::post('/idBuatJadwal/{id_izin}', [JadwalBnspController::class, 'buatJadwal'])->name('buatJadwal');
 
@@ -55,21 +79,20 @@ Route::post('/buat-jadwal', [JadwalBnspController::class, 'storeJadwal'])->name(
 // Route::post('/buat-jadwal/{id_izin}', [JadwalBnspController::class, 'buatJadwal'])->name('buatJadwal');
 
 Route::get('show-data/{id_izin}', function () {
-  return view('show');
+    return view('show');
 });
 
 Route::get('idBuatJadwal', function () {
-  return view('idBuatJadwal');
+    return view('idBuatJadwal');
 });
 
 Route::post('input-jadwal/', function (Request $request) {
-  return redirect('input-jadwal/' . $request->input("id_izin"));
+    return redirect('input-jadwal/' . $request->input("id_izin"));
 })->name("input_jadwal");
 
-Route::get("input-jadwal/{id_izin}", function($id_izin){
-  return view('buat-jadwal', ['id_izin' => $id_izin]);
+Route::get("input-jadwal/{id_izin}", function ($id_izin) {
+    return view('buat-jadwal', ['id_izin' => $id_izin]);
 });
-
 
 
 // Generate Certificate

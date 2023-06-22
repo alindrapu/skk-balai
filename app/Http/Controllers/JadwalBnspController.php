@@ -17,9 +17,10 @@ class JadwalBnspController extends Controller
         return view('idBuatJadwal');
     }
 
-    public function buatJadwal(Request $request, $id_izin)
+    public function buatJadwal(Request $request)
     {
         // Retrieve values from the "personals" table
+        $id_izin = $request->input('id_izin');
         $personalsData = DB::table('personals')->where('id_izin', $id_izin)->select('nik', 'nama', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'alamat', 'kabupaten', 'propinsi', 'telepon', 'email')->first();
 
         $jadwal_id = (int)$request->input('jadwal_id');
@@ -111,97 +112,6 @@ class JadwalBnspController extends Controller
             // $responseBody = $response->getBody()->getContents();
             // $responseData = json_decode($responseBody, true);
 
-            DB::beginTransaction();
-        try {
-            $jadwalBnsp = JadwalBNSP::where('id_izin', $id_izin)->first();
-
-            if ($jadwalBnsp) {
-                $jadwalBnsp->id_izin = $id_izin;
-                $jadwalBnsp->jadwal_id = $apiData['jadwal_id'];
-                $jadwalBnsp->tuk_id = $apiData['tuk_id'];
-                $jadwalBnsp->asesor_id = $apiData['asesor_id'];
-                $jadwalBnsp->is_fg = $apiData['is_fg'];
-                $jadwalBnsp->nik = $apiData['nik'];
-                $jadwalBnsp->nib = $apiData['nib'];
-                $jadwalBnsp->nama = $apiData['nama'];
-                $jadwalBnsp->tempat_lahir = $apiData['tempat_lahir'];
-                $jadwalBnsp->tanggal_lahir = $apiData['tanggal_lahir'];
-                $jadwalBnsp->jenis_kelamin = $apiData['jenis_kelamin'];
-                $jadwalBnsp->alamat = $apiData['alamat'];
-                $jadwalBnsp->kota_id = $apiData['kota_id'];
-                $jadwalBnsp->provinsi_id = $apiData['provinsi_id'];
-                $jadwalBnsp->negara_id = $apiData['negara_id'];
-                $jadwalBnsp->telepon = $apiData['telepon'];
-                $jadwalBnsp->email = $apiData['email'];
-                $jadwalBnsp->jenis_mohon = $apiData['jenis_mohon'];
-                $jadwalBnsp->skema_id = $apiData['skema_id'];
-                $jadwalBnsp->keterangan = $apiData['keterangan'];
-                $jadwalBnsp->jenjang_id = $apiData['jenjang_id'];
-                $jadwalBnsp->prodi = $apiData['prodi'];
-                $jadwalBnsp->no_ijasah = $apiData['no_ijasah'];
-                // $jadwalBnsp->tanggal_ijazah = $apiData['tanggal_ijazah'];
-                $jadwalBnsp->tahun_lulus = $apiData['tahun_lulus'];
-                $jadwalBnsp->kota_sekolah = $apiData['kota_sekolah'];
-                $jadwalBnsp->prov_sekolah = $apiData['prov_sekolah'];
-                $jadwalBnsp->negara_sekolah = $apiData['negara_sekolah'];
-                $jadwalBnsp->nama_sekolah = $apiData['nama_sekolah'];
-                $jadwalBnsp->pekerjaan = $apiData['pekerjaan'];
-                $jadwalBnsp->instansi_pekerjaan = $apiData['instansi_pekerjaan'];
-                $jadwalBnsp->jabatan_pekerjaan = $apiData['jabatan_pekerjaan'];
-                $jadwalBnsp->file_foto = $apiData['file_foto'];
-                $jadwalBnsp->file_ktp = $apiData['file_ktp'];
-                $jadwalBnsp->file_nib = $apiData['file_nib'];
-                $jadwalBnsp->file_ijazah = $apiData['file_ijazah'];
-                $jadwalBnsp->save();
-            } else {
-                $jadwalBnsp = new JadwalBNSP();
-                $jadwalBnsp->id_izin = $id_izin;
-                $jadwalBnsp->jadwal_id = $apiData['jadwal_id'];
-                $jadwalBnsp->tuk_id = $apiData['tuk_id'];
-                $jadwalBnsp->asesor_id = $apiData['asesor_id'];
-                $jadwalBnsp->is_fg = $apiData['is_fg'];
-                $jadwalBnsp->nik = $apiData['nik'];
-                $jadwalBnsp->nib = $apiData['nib'];
-                $jadwalBnsp->nama = $apiData['nama'];
-                $jadwalBnsp->tempat_lahir = $apiData['tempat_lahir'];
-                $jadwalBnsp->tanggal_lahir = $apiData['tanggal_lahir'];
-                $jadwalBnsp->jenis_kelamin = $apiData['jenis_kelamin'];
-                $jadwalBnsp->alamat = $apiData['alamat'];
-                $jadwalBnsp->kota_id = $apiData['kota_id'];
-                $jadwalBnsp->provinsi_id = $apiData['provinsi_id'];
-                $jadwalBnsp->negara_id = $apiData['negara_id'];
-                $jadwalBnsp->telepon = $apiData['telepon'];
-                $jadwalBnsp->email = $apiData['email'];
-                $jadwalBnsp->jenis_mohon = $apiData['jenis_mohon'];
-                $jadwalBnsp->skema_id = $apiData['skema_id'];
-                $jadwalBnsp->keterangan = $apiData['keterangan'];
-                $jadwalBnsp->jenjang_id = $apiData['jenjang_id'];
-                $jadwalBnsp->prodi = $apiData['prodi'];
-                $jadwalBnsp->no_ijasah = $apiData['no_ijasah'];
-                // $jadwalBnsp->tanggal_ijazah = $apiData['tanggal_ijazah'];
-                $jadwalBnsp->tahun_lulus = $apiData['tahun_lulus'];
-                $jadwalBnsp->kota_sekolah = $apiData['kota_sekolah'];
-                $jadwalBnsp->prov_sekolah = $apiData['prov_sekolah'];
-                $jadwalBnsp->negara_sekolah = $apiData['negara_sekolah'];
-                $jadwalBnsp->nama_sekolah = $apiData['nama_sekolah'];
-                $jadwalBnsp->pekerjaan = $apiData['pekerjaan'];
-                $jadwalBnsp->instansi_pekerjaan = $apiData['instansi_pekerjaan'];
-                $jadwalBnsp->jabatan_pekerjaan = $apiData['jabatan_pekerjaan'];
-                $jadwalBnsp->file_foto = $apiData['file_foto'];
-                $jadwalBnsp->file_ktp = $apiData['file_ktp'];
-                $jadwalBnsp->file_nib = $apiData['file_nib'];
-                $jadwalBnsp->file_ijazah = $apiData['file_ijazah'];
-                $jadwalBnsp->save();
-            }
-
-            DB::commit();
-            return response()->json(['success' => true, 'apiData' => $apiData]);
-        } catch (QueryException $e) {
-            DB::rollBack();
-            $errorMessage = 'Error putting data into the database: ' . $e->getMessage();
-            return response()->json(['error' => $errorMessage], 500);
-        }
-
 
             // return response()->json(['success' => true, 'responseData' => $responseData]);
         } catch (RequestException $e) {
@@ -222,7 +132,98 @@ class JadwalBnspController extends Controller
             //     return response()->json(['error' => 'Failed to process data', 'message' => 'An error occurred during the API request'], 500);
             // }
         }
-        
+
+        // try {
+        //     DB::beginTransaction();
+        //     $jadwalBnsp = JadwalBNSP::where('id_izin', $id_izin)->first();
+
+        //     if ($jadwalBnsp) {
+        //         $jadwalBnsp->id_izin = $id_izin;
+        //         $jadwalBnsp->jadwal_id = $apiData['jadwal_id'];
+        //         $jadwalBnsp->tuk_id = $apiData['tuk_id'];
+        //         $jadwalBnsp->asesor_id = $apiData['asesor_id'];
+        //         $jadwalBnsp->is_fg = $apiData['is_fg'];
+        //         $jadwalBnsp->nik = $apiData['nik'];
+        //         $jadwalBnsp->nib = $apiData['nib'];
+        //         $jadwalBnsp->nama = $apiData['nama'];
+        //         $jadwalBnsp->tempat_lahir = $apiData['tempat_lahir'];
+        //         $jadwalBnsp->tanggal_lahir = $apiData['tanggal_lahir'];
+        //         $jadwalBnsp->jenis_kelamin = $apiData['jenis_kelamin'];
+        //         $jadwalBnsp->alamat = $apiData['alamat'];
+        //         $jadwalBnsp->kota_id = $apiData['kota_id'];
+        //         $jadwalBnsp->provinsi_id = $apiData['provinsi_id'];
+        //         $jadwalBnsp->negara_id = $apiData['negara_id'];
+        //         $jadwalBnsp->telepon = $apiData['telepon'];
+        //         $jadwalBnsp->email = $apiData['email'];
+        //         $jadwalBnsp->jenis_mohon = $apiData['jenis_mohon'];
+        //         $jadwalBnsp->skema_id = $apiData['skema_id'];
+        //         $jadwalBnsp->keterangan = $apiData['keterangan'];
+        //         $jadwalBnsp->jenjang_id = $apiData['jenjang_id'];
+        //         $jadwalBnsp->prodi = $apiData['prodi'];
+        //         $jadwalBnsp->no_ijasah = $apiData['no_ijasah'];
+        //         // $jadwalBnsp->tanggal_ijazah = $apiData['tanggal_ijazah'];
+        //         $jadwalBnsp->tahun_lulus = $apiData['tahun_lulus'];
+        //         $jadwalBnsp->kota_sekolah = $apiData['kota_sekolah'];
+        //         $jadwalBnsp->prov_sekolah = $apiData['prov_sekolah'];
+        //         $jadwalBnsp->negara_sekolah = $apiData['negara_sekolah'];
+        //         $jadwalBnsp->nama_sekolah = $apiData['nama_sekolah'];
+        //         $jadwalBnsp->pekerjaan = $apiData['pekerjaan'];
+        //         $jadwalBnsp->instansi_pekerjaan = $apiData['instansi_pekerjaan'];
+        //         $jadwalBnsp->jabatan_pekerjaan = $apiData['jabatan_pekerjaan'];
+        //         $jadwalBnsp->file_foto = $apiData['file_foto'];
+        //         $jadwalBnsp->file_ktp = $apiData['file_ktp'];
+        //         $jadwalBnsp->file_nib = $apiData['file_nib'];
+        //         $jadwalBnsp->file_ijazah = $apiData['file_ijazah'];
+        //         $jadwalBnsp->save();
+        //     } else {
+        //         $jadwalBnsp = new JadwalBNSP();
+        //         $jadwalBnsp->id_izin = $id_izin;
+        //         $jadwalBnsp->jadwal_id = $apiData['jadwal_id'];
+        //         $jadwalBnsp->tuk_id = $apiData['tuk_id'];
+        //         $jadwalBnsp->asesor_id = $apiData['asesor_id'];
+        //         $jadwalBnsp->is_fg = $apiData['is_fg'];
+        //         $jadwalBnsp->nik = $apiData['nik'];
+        //         $jadwalBnsp->nib = $apiData['nib'];
+        //         $jadwalBnsp->nama = $apiData['nama'];
+        //         $jadwalBnsp->tempat_lahir = $apiData['tempat_lahir'];
+        //         $jadwalBnsp->tanggal_lahir = $apiData['tanggal_lahir'];
+        //         $jadwalBnsp->jenis_kelamin = $apiData['jenis_kelamin'];
+        //         $jadwalBnsp->alamat = $apiData['alamat'];
+        //         $jadwalBnsp->kota_id = $apiData['kota_id'];
+        //         $jadwalBnsp->provinsi_id = $apiData['provinsi_id'];
+        //         $jadwalBnsp->negara_id = $apiData['negara_id'];
+        //         $jadwalBnsp->telepon = $apiData['telepon'];
+        //         $jadwalBnsp->email = $apiData['email'];
+        //         $jadwalBnsp->jenis_mohon = $apiData['jenis_mohon'];
+        //         $jadwalBnsp->skema_id = $apiData['skema_id'];
+        //         $jadwalBnsp->keterangan = $apiData['keterangan'];
+        //         $jadwalBnsp->jenjang_id = $apiData['jenjang_id'];
+        //         $jadwalBnsp->prodi = $apiData['prodi'];
+        //         $jadwalBnsp->no_ijasah = $apiData['no_ijasah'];
+        //         // $jadwalBnsp->tanggal_ijazah = $apiData['tanggal_ijazah'];
+        //         $jadwalBnsp->tahun_lulus = $apiData['tahun_lulus'];
+        //         $jadwalBnsp->kota_sekolah = $apiData['kota_sekolah'];
+        //         $jadwalBnsp->prov_sekolah = $apiData['prov_sekolah'];
+        //         $jadwalBnsp->negara_sekolah = $apiData['negara_sekolah'];
+        //         $jadwalBnsp->nama_sekolah = $apiData['nama_sekolah'];
+        //         $jadwalBnsp->pekerjaan = $apiData['pekerjaan'];
+        //         $jadwalBnsp->instansi_pekerjaan = $apiData['instansi_pekerjaan'];
+        //         $jadwalBnsp->jabatan_pekerjaan = $apiData['jabatan_pekerjaan'];
+        //         $jadwalBnsp->file_foto = $apiData['file_foto'];
+        //         $jadwalBnsp->file_ktp = $apiData['file_ktp'];
+        //         $jadwalBnsp->file_nib = $apiData['file_nib'];
+        //         $jadwalBnsp->file_ijazah = $apiData['file_ijazah'];
+        //         $jadwalBnsp->save();
+        //     }
+
+        //     DB::commit();
+        //     return response()->json(['success' => true, 'apiData' => $apiData]);
+        // } catch (QueryException $e) {
+        //     DB::rollBack();
+        //     $errorMessage = 'Error putting data into the database: ' . $e->getMessage();
+        //     return response()->json(['error' => $errorMessage], 500);
+        // }
+
         return view('idBuatJadwal', ['id_izin' => $id_izin]);
     }
 
@@ -341,96 +342,96 @@ class JadwalBnspController extends Controller
             //     return response()->json(['error' => 'Failed to process data', 'message' => 'An error occurred during the API request'], 500);
             // }
         }
-        DB::beginTransaction();
-        try {
-            $jadwalBnsp = JadwalBNSP::where('id_izin', $id_izin)->first();
+        // DB::beginTransaction();
+        // try {
+        //     $jadwalBnsp = JadwalBNSP::where('id_izin', $id_izin)->first();
 
-            if ($jadwalBnsp) {
-                $jadwalBnsp->id_izin = $id_izin;
-                $jadwalBnsp->jadwal_id = $apiData['jadwal_id'];
-                $jadwalBnsp->tuk_id = $apiData['tuk_id'];
-                $jadwalBnsp->asesor_id = $apiData['asesor_id'];
-                $jadwalBnsp->is_fg = $apiData['is_fg'];
-                $jadwalBnsp->nik = $apiData['nik'];
-                $jadwalBnsp->nib = $apiData['nib'];
-                $jadwalBnsp->nama = $apiData['nama'];
-                $jadwalBnsp->tempat_lahir = $apiData['tempat_lahir'];
-                $jadwalBnsp->tanggal_lahir = $apiData['tanggal_lahir'];
-                $jadwalBnsp->jenis_kelamin = $apiData['jenis_kelamin'];
-                $jadwalBnsp->alamat = $apiData['alamat'];
-                $jadwalBnsp->kota_id = $apiData['kota_id'];
-                $jadwalBnsp->provinsi_id = $apiData['provinsi_id'];
-                $jadwalBnsp->negara_id = $apiData['negara_id'];
-                $jadwalBnsp->telepon = $apiData['telepon'];
-                $jadwalBnsp->email = $apiData['email'];
-                $jadwalBnsp->jenis_mohon = $apiData['jenis_mohon'];
-                $jadwalBnsp->skema_id = $apiData['skema_id'];
-                $jadwalBnsp->keterangan = $apiData['keterangan'];
-                $jadwalBnsp->jenjang_id = $apiData['jenjang_id'];
-                $jadwalBnsp->prodi = $apiData['prodi'];
-                $jadwalBnsp->no_ijasah = $apiData['no_ijasah'];
-                // $jadwalBnsp->tanggal_ijazah = $apiData['tanggal_ijazah'];
-                $jadwalBnsp->tahun_lulus = $apiData['tahun_lulus'];
-                $jadwalBnsp->kota_sekolah = $apiData['kota_sekolah'];
-                $jadwalBnsp->prov_sekolah = $apiData['prov_sekolah'];
-                $jadwalBnsp->negara_sekolah = $apiData['negara_sekolah'];
-                $jadwalBnsp->nama_sekolah = $apiData['nama_sekolah'];
-                $jadwalBnsp->pekerjaan = $apiData['pekerjaan'];
-                $jadwalBnsp->instansi_pekerjaan = $apiData['instansi_pekerjaan'];
-                $jadwalBnsp->jabatan_pekerjaan = $apiData['jabatan_pekerjaan'];
-                $jadwalBnsp->file_foto = $apiData['file_foto'];
-                $jadwalBnsp->file_ktp = $apiData['file_ktp'];
-                $jadwalBnsp->file_nib = $apiData['file_nib'];
-                $jadwalBnsp->file_ijazah = $apiData['file_ijazah'];
-                $jadwalBnsp->save();
-            } else {
-                $jadwalBnsp = new JadwalBNSP();
-                $jadwalBnsp->id_izin = $id_izin;
-                $jadwalBnsp->jadwal_id = $apiData['jadwal_id'];
-                $jadwalBnsp->tuk_id = $apiData['tuk_id'];
-                $jadwalBnsp->asesor_id = $apiData['asesor_id'];
-                $jadwalBnsp->is_fg = $apiData['is_fg'];
-                $jadwalBnsp->nik = $apiData['nik'];
-                $jadwalBnsp->nib = $apiData['nib'];
-                $jadwalBnsp->nama = $apiData['nama'];
-                $jadwalBnsp->tempat_lahir = $apiData['tempat_lahir'];
-                $jadwalBnsp->tanggal_lahir = $apiData['tanggal_lahir'];
-                $jadwalBnsp->jenis_kelamin = $apiData['jenis_kelamin'];
-                $jadwalBnsp->alamat = $apiData['alamat'];
-                $jadwalBnsp->kota_id = $apiData['kota_id'];
-                $jadwalBnsp->provinsi_id = $apiData['provinsi_id'];
-                $jadwalBnsp->negara_id = $apiData['negara_id'];
-                $jadwalBnsp->telepon = $apiData['telepon'];
-                $jadwalBnsp->email = $apiData['email'];
-                $jadwalBnsp->jenis_mohon = $apiData['jenis_mohon'];
-                $jadwalBnsp->skema_id = $apiData['skema_id'];
-                $jadwalBnsp->keterangan = $apiData['keterangan'];
-                $jadwalBnsp->jenjang_id = $apiData['jenjang_id'];
-                $jadwalBnsp->prodi = $apiData['prodi'];
-                $jadwalBnsp->no_ijasah = $apiData['no_ijasah'];
-                // $jadwalBnsp->tanggal_ijazah = $apiData['tanggal_ijazah'];
-                $jadwalBnsp->tahun_lulus = $apiData['tahun_lulus'];
-                $jadwalBnsp->kota_sekolah = $apiData['kota_sekolah'];
-                $jadwalBnsp->prov_sekolah = $apiData['prov_sekolah'];
-                $jadwalBnsp->negara_sekolah = $apiData['negara_sekolah'];
-                $jadwalBnsp->nama_sekolah = $apiData['nama_sekolah'];
-                $jadwalBnsp->pekerjaan = $apiData['pekerjaan'];
-                $jadwalBnsp->instansi_pekerjaan = $apiData['instansi_pekerjaan'];
-                $jadwalBnsp->jabatan_pekerjaan = $apiData['jabatan_pekerjaan'];
-                $jadwalBnsp->file_foto = $apiData['file_foto'];
-                $jadwalBnsp->file_ktp = $apiData['file_ktp'];
-                $jadwalBnsp->file_nib = $apiData['file_nib'];
-                $jadwalBnsp->file_ijazah = $apiData['file_ijazah'];
-                $jadwalBnsp->save();
-            }
+        //     if ($jadwalBnsp) {
+        //         $jadwalBnsp->id_izin = $id_izin;
+        //         $jadwalBnsp->jadwal_id = $apiData['jadwal_id'];
+        //         $jadwalBnsp->tuk_id = $apiData['tuk_id'];
+        //         $jadwalBnsp->asesor_id = $apiData['asesor_id'];
+        //         $jadwalBnsp->is_fg = $apiData['is_fg'];
+        //         $jadwalBnsp->nik = $apiData['nik'];
+        //         $jadwalBnsp->nib = $apiData['nib'];
+        //         $jadwalBnsp->nama = $apiData['nama'];
+        //         $jadwalBnsp->tempat_lahir = $apiData['tempat_lahir'];
+        //         $jadwalBnsp->tanggal_lahir = $apiData['tanggal_lahir'];
+        //         $jadwalBnsp->jenis_kelamin = $apiData['jenis_kelamin'];
+        //         $jadwalBnsp->alamat = $apiData['alamat'];
+        //         $jadwalBnsp->kota_id = $apiData['kota_id'];
+        //         $jadwalBnsp->provinsi_id = $apiData['provinsi_id'];
+        //         $jadwalBnsp->negara_id = $apiData['negara_id'];
+        //         $jadwalBnsp->telepon = $apiData['telepon'];
+        //         $jadwalBnsp->email = $apiData['email'];
+        //         $jadwalBnsp->jenis_mohon = $apiData['jenis_mohon'];
+        //         $jadwalBnsp->skema_id = $apiData['skema_id'];
+        //         $jadwalBnsp->keterangan = $apiData['keterangan'];
+        //         $jadwalBnsp->jenjang_id = $apiData['jenjang_id'];
+        //         $jadwalBnsp->prodi = $apiData['prodi'];
+        //         $jadwalBnsp->no_ijasah = $apiData['no_ijasah'];
+        //         // $jadwalBnsp->tanggal_ijazah = $apiData['tanggal_ijazah'];
+        //         $jadwalBnsp->tahun_lulus = $apiData['tahun_lulus'];
+        //         $jadwalBnsp->kota_sekolah = $apiData['kota_sekolah'];
+        //         $jadwalBnsp->prov_sekolah = $apiData['prov_sekolah'];
+        //         $jadwalBnsp->negara_sekolah = $apiData['negara_sekolah'];
+        //         $jadwalBnsp->nama_sekolah = $apiData['nama_sekolah'];
+        //         $jadwalBnsp->pekerjaan = $apiData['pekerjaan'];
+        //         $jadwalBnsp->instansi_pekerjaan = $apiData['instansi_pekerjaan'];
+        //         $jadwalBnsp->jabatan_pekerjaan = $apiData['jabatan_pekerjaan'];
+        //         $jadwalBnsp->file_foto = $apiData['file_foto'];
+        //         $jadwalBnsp->file_ktp = $apiData['file_ktp'];
+        //         $jadwalBnsp->file_nib = $apiData['file_nib'];
+        //         $jadwalBnsp->file_ijazah = $apiData['file_ijazah'];
+        //         $jadwalBnsp->save();
+        //     } else {
+        //         $jadwalBnsp = new JadwalBNSP();
+        //         $jadwalBnsp->id_izin = $id_izin;
+        //         $jadwalBnsp->jadwal_id = $apiData['jadwal_id'];
+        //         $jadwalBnsp->tuk_id = $apiData['tuk_id'];
+        //         $jadwalBnsp->asesor_id = $apiData['asesor_id'];
+        //         $jadwalBnsp->is_fg = $apiData['is_fg'];
+        //         $jadwalBnsp->nik = $apiData['nik'];
+        //         $jadwalBnsp->nib = $apiData['nib'];
+        //         $jadwalBnsp->nama = $apiData['nama'];
+        //         $jadwalBnsp->tempat_lahir = $apiData['tempat_lahir'];
+        //         $jadwalBnsp->tanggal_lahir = $apiData['tanggal_lahir'];
+        //         $jadwalBnsp->jenis_kelamin = $apiData['jenis_kelamin'];
+        //         $jadwalBnsp->alamat = $apiData['alamat'];
+        //         $jadwalBnsp->kota_id = $apiData['kota_id'];
+        //         $jadwalBnsp->provinsi_id = $apiData['provinsi_id'];
+        //         $jadwalBnsp->negara_id = $apiData['negara_id'];
+        //         $jadwalBnsp->telepon = $apiData['telepon'];
+        //         $jadwalBnsp->email = $apiData['email'];
+        //         $jadwalBnsp->jenis_mohon = $apiData['jenis_mohon'];
+        //         $jadwalBnsp->skema_id = $apiData['skema_id'];
+        //         $jadwalBnsp->keterangan = $apiData['keterangan'];
+        //         $jadwalBnsp->jenjang_id = $apiData['jenjang_id'];
+        //         $jadwalBnsp->prodi = $apiData['prodi'];
+        //         $jadwalBnsp->no_ijasah = $apiData['no_ijasah'];
+        //         // $jadwalBnsp->tanggal_ijazah = $apiData['tanggal_ijazah'];
+        //         $jadwalBnsp->tahun_lulus = $apiData['tahun_lulus'];
+        //         $jadwalBnsp->kota_sekolah = $apiData['kota_sekolah'];
+        //         $jadwalBnsp->prov_sekolah = $apiData['prov_sekolah'];
+        //         $jadwalBnsp->negara_sekolah = $apiData['negara_sekolah'];
+        //         $jadwalBnsp->nama_sekolah = $apiData['nama_sekolah'];
+        //         $jadwalBnsp->pekerjaan = $apiData['pekerjaan'];
+        //         $jadwalBnsp->instansi_pekerjaan = $apiData['instansi_pekerjaan'];
+        //         $jadwalBnsp->jabatan_pekerjaan = $apiData['jabatan_pekerjaan'];
+        //         $jadwalBnsp->file_foto = $apiData['file_foto'];
+        //         $jadwalBnsp->file_ktp = $apiData['file_ktp'];
+        //         $jadwalBnsp->file_nib = $apiData['file_nib'];
+        //         $jadwalBnsp->file_ijazah = $apiData['file_ijazah'];
+        //         $jadwalBnsp->save();
+        //     }
 
-            DB::commit();
-            return response()->json(['success' => true, 'apiData' => $apiData]);
-        } catch (QueryException $e) {
-            DB::rollBack();
-            $errorMessage = 'Error putting data into the database: ' . $e->getMessage();
-            return response()->json(['error' => $errorMessage], 500);
-        }
+        //     DB::commit();
+        //     return response()->json(['success' => true, 'apiData' => $apiData]);
+        // } catch (QueryException $e) {
+        //     DB::rollBack();
+        //     $errorMessage = 'Error putting data into the database: ' . $e->getMessage();
+        //     return response()->json(['error' => $errorMessage], 500);
+        // }
         return view('idBuatJadwal', ['id_izin' => $id_izin]);
     }
 }
