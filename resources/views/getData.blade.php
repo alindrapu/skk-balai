@@ -76,56 +76,55 @@
         border-radius: 5px;
     }
 
-    .sidebar {
-        width: 265px;
+    .navbar {
+        width: 100%;
         /* background-color: #f2f2f2; */
         background-color: white;
         padding: 20px;
-        height: 100vh;
+        height: 10vh;
         position: fixed;
         display: flex;
-        flex-wrap: wrap;
-        align-items: flex-start;
+        justify-content: space-around;
         top: 0;
         left: 0;
+        gap: 20px;
         z-index: 1;
     }
 
     .logo {
         display: flex;
         justify-content: center;
-        width: 100%;
     }
 
     img.lsp {
         width: 247px;
     }
 
-    .sidebar ul {
+    .navbar ul {
         list-style-type: none;
         padding: 0;
         margin: 0;
     }
 
-    .sidebar ul li {
+    .navbar ul li {
         margin-top: 10px;
         margin-bottom: 10px;
     }
 
-    .sidebar ul li a {
+    .navbar ul li a {
         text-decoration: none;
         color: #3F72AF;
         font-size: larger;
         transition: font-weight 0.1s ease-out;
     }
 
-    .sidebar ul li a:hover {
+    .navbar ul li a:hover {
         color: #3F72AF;
         font-weight: bold;
     }
 
     .kotak {
-        width: 90%;
+        width: 100%;
         height: 100%;
         background: #3F72AF;
         display: flex;
@@ -138,16 +137,11 @@
         top: 0;
         margin: auto;
     }
-
-    /*
-  .menus{
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-  li{
-    width: 100%;
-  } */
+    .menus{
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
 </style>
 
 <body>
@@ -155,7 +149,7 @@
         <div>{{ session('success') }}</div>
     @endif
 
-    <div class="sidebar">
+    <div class="navbar">
         <div class="logo">
             <img src="https://lspgatensi.id/images/logo-color.webp" alt="Logo" class="lsp">
         </div>

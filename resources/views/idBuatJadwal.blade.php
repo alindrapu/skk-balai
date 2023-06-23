@@ -71,71 +71,75 @@
     border-radius: 5px;
   }
 
-  .sidebar {
-    width: 265px;
-    /* background-color: #f2f2f2; */
-    background-color: white;
-    padding: 20px;
-    height: 100vh;
-    position: fixed;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    top: 0;
-    left: 0;
-    z-index: 1;
-  }
+  .navbar {
+        width: 100%;
+        /* background-color: #f2f2f2; */
+        background-color: white;
+        padding: 20px;
+        height: 10vh;
+        position: fixed;
+        display: flex;
+        justify-content: space-around;
+        top: 0;
+        left: 0;
+        gap: 20px;
+        z-index: 1;
+    }
 
-  .logo {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-  }
+    .logo {
+        display: flex;
+        justify-content: center;
+    }
 
-  img.lsp {
-    width: 247px;
-  }
+    img.lsp {
+        width: 247px;
+    }
 
-  .sidebar ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
+    .navbar ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
 
-  .sidebar ul li {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
+    .navbar ul li {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
 
-  .sidebar ul li a {
-    text-decoration: none;
-    color: #3F72AF;
-    font-size: larger;
-    transition: font-weight 0.1s ease-out;
-  }
+    .navbar ul li a {
+        text-decoration: none;
+        color: #3F72AF;
+        font-size: larger;
+        transition: font-weight 0.1s ease-out;
+    }
 
-  .sidebar ul li a:hover {
-    color: #3F72AF;
-    font-weight: bold;
-  }
+    .navbar ul li a:hover {
+        color: #3F72AF;
+        font-weight: bold;
+    }
 
-  .kotak {
-    width: 90%;
-    height: 100%;
-    background: #3F72AF;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    flex-wrap: wrap;
-    align-content: center;
-    position: absolute;
-    right: 0;
-    top: 0;
-    margin: auto;
-  }
+    .kotak {
+        width: 100%;
+        height: 100%;
+        background: #3F72AF;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        align-content: center;
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin: auto;
+    }
+    .menus{
+        display: flex;
+        gap: 20px;
+        align-items: center;
+    }
 </style>
 
-<div class="sidebar">
+<div class="navbar">
   <div class="logo">
     <img src="https://lspgatensi.id/images/logo-color.webp" alt="Logo" class="lsp">
   </div>

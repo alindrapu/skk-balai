@@ -42,7 +42,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/store-data', [DataController::class, 'store'])->name('storeData');
     Route::get('/data', function () {
         return view('data');
-    });
+    })->name('verifikasiData');
 });
 
 
@@ -84,7 +84,7 @@ Route::get('show-data/{id_izin}', function () {
 
 Route::get('idBuatJadwal', function () {
     return view('idBuatJadwal');
-});
+})->name('idBuatJadwal');
 
 Route::post('input-jadwal/', function (Request $request) {
     return redirect('input-jadwal/' . $request->input("id_izin"));
