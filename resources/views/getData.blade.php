@@ -1,10 +1,10 @@
 <!-- getData.blade.php -->
-<html>
+{{-- <html>
 
 <head>
     <title>Get Data</title>
-</head>
-<style>
+</head> --}}
+{{-- <style>
     body {
         background-color: #DBE2EF;
         overflow: hidden;
@@ -142,54 +142,58 @@
         gap: 20px;
         align-items: center;
     }
-</style>
+</style> --}}
 
-<body>
-    @if (session('success'))
-        <div>{{ session('success') }}</div>
-    @endif
-
-    <div class="navbar">
+{{-- <body> --}}
+@if (session('success'))
+    <div>{{ session('success') }}</div>
+@endif
+<x-app-layout>
+    {{-- <div class="navbar">
         <div class="logo">
             <img src="https://lspgatensi.id/images/logo-color.webp" alt="Logo" class="lsp">
         </div>
         <ul class="menus">
-            {{-- <li><a href="/"><p>Get Data</p></a></li>
-        <li><a href="/data"><p>Verifikasi</p></a></li>
-        <li><a href="/idBuatJadwal"><p>Buat Jadwal</p></a></li> --}}
+           
             <li><a href="/">Get Data</a></li>
             <li><a href="/data">Verifikasi</a></li>
             <li><a href="/idBuatJadwal">Buat Jadwal</a></li>
         </ul>
-    </div>
-
-    <div class="kotak">
-
-
-        <div class="title">
-            <h1>GET DATA</h1>
-        </div>
-        <div class="form-id">
-
+    </div> --}}
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Get Data') }}
+        </h2>
+    </x-slot>
+    {{-- <div class="kotak"> --}}
+    <div class=" flex justify-center h-screen w-screen items-center">
+        <div class="form-id ">
             <form action="{{ route('storeData') }}" method="POST">
                 @csrf
-                <div class="input">
-                    <input type="text" name="id_izin" placeholder="ID Izin">
-                    <button type="submit">Get Data</button>
+                <div
+                    class="md:flex sm:justify-center bg-gray-800 border-slate-600  shadow-md rounded px-8 pt-6 pb-8 mb-4 gap-5">
+                    <input
+                        class="min-w-0 flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 h-10 md:w-96"
+                        type="text" name="id_izin" placeholder="ID Izin">
+                    <button
+                        class="flex-none h-10 rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                        type="submit">Get Data</button>
                 </div>
                 <br>
         </div>
-        {{-- <div class="pembagi">
+    </div>
+    {{-- <div class="pembagi">
   <h1>ATAU</h1>
 </div> --}}
 
-        {{-- <div class="verifikasi-but">
+    {{-- <div class="verifikasi-but">
   <a href="/data">
     <button class="button-28">Verifikasi Permohonan</button>
   </a>
   </div> --}}
 
-    </div>
-</body>
+    {{-- </div> --}}
+</x-app-layout>
+{{-- </body>
 
-</html>
+</html> --}}

@@ -1,4 +1,4 @@
-<style>
+{{-- <style>
   body {
     background-color: #DBE2EF;
     overflow: hidden;
@@ -137,32 +137,39 @@
         gap: 20px;
         align-items: center;
     }
-</style>
+</style> --}}
 
-<div class="navbar">
-  <div class="logo">
-    <img src="https://lspgatensi.id/images/logo-color.webp" alt="Logo" class="lsp">
-  </div>
-  <ul class="menus">
-    <li><a href="/">Get Data</a></li>
-    <li><a href="/data">Verifikasi</a></li>
-    <li><a href="/idBuatJadwal">Buat Jadwal</a></li>
-  </ul>
-</div>
+{{-- <div class="navbar">
+    <div class="logo">
+        <img src="https://lspgatensi.id/images/logo-color.webp" alt="Logo" class="lsp">
+    </div>
+    <ul class="menus">
+        <li><a href="/">Get Data</a></li>
+        <li><a href="/data">Verifikasi</a></li>
+        <li><a href="/idBuatJadwal">Buat Jadwal</a></li>
+    </ul>
+</div> --}}
 
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('BUAT JADWAL') }}
+        </h2>
+    </x-slot>
+    <div class=" flex justify-center h-screen w-screen items-center">
+        <form method="POST" action="{{ route('input_jadwal') }}">
+            @csrf
+            {{-- <label for="id_izin">ID Izin: </label><br> --}}
+            <div
+                class="md:flex sm:justify-center bg-gray-800 border-slate-600  shadow-md rounded px-8 pt-6 pb-8 mb-4 gap-5">
+                <input
+                    class="min-w-0 flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 h-10 md:w-96"
+                    type="text" name="id_izin" id="id_izin" placeholder="ID Izin" required>
+                <button
+                    class="flex-none h-10 rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                    type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
 
-<div class="kotak">
-  <div class="title">
-    <h1>Input Jadwal</h1>
-  </div>
-  <div class="form">
-    <form method="POST" action="{{ route('input_jadwal') }}">
-      @csrf
-      {{-- <label for="id_izin">ID Izin: </label><br> --}}
-      <div class="input">
-        <input type="text" name="id_izin" id="id_izin" placeholder="ID Izin" required>
-        <button type="submit">Submit</button>
-      </div>
-    </form>
-  </div>
-</div>
+</x-app-layout>
