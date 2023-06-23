@@ -13,10 +13,9 @@ use App\Models\SertifikatSuket;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use GuzzleHttp\Client;
-
-
-
-
+use App\Models\MasterTukLpjk;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 
 class DataController extends Controller
 {
@@ -197,5 +196,62 @@ class DataController extends Controller
         $klasifikasikualifikasis = KlasifikasiKualifikasi::where('id_izin', $id_izin)->get();
 
         return view('show', compact('id_izin', 'personals', 'pendidikans', 'proyeks', 'pelatihans', 'sertifikatsukets', 'klasifikasikualifikasis'));
+    }
+
+    public function getDataTuk(Request $request)
+    {
+
+        $authData = DB::table('b_n_s_p_auths')->select('x_authorization')->first()->x_authorization;
+
+        // Fetch data from the API
+        $url = 'https://konstruksi.bnsp.go.id/api/v1/tuk';
+
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+            'x-authorization' => $authData,
+        ])->get($url);
+
+        $data = $response->json();
+
+        // Store data TUK
+        $id = $data['data'][0]['id'];
+        $idlsp = $data['data'][1]['idlsp'];
+        $kode = $data['data'][2]['kode'];
+        $nama = $data['data'][3]['nama'];
+        $idjenis = $data['data'][4]['idjenis'];
+        $idpropinsi = $data['data'][5]['idpropinsi'];
+        $idkota = $data['data'][6]['idkota'];
+        $alamat = $data['data'][7]['alamat'];
+        $telp = $data['data'][9]['telp'];
+        $hp = $data['data'][10]['hp'];
+        $fax = $data['data'][11]['fax'];
+        $email = $data['data'][13]['email'];
+        $keterangan = $data['data'][14]['keterangan'];
+        DB::beginTransaction();
+
+        try {
+            $tukLpjk = MasterTukLpjk::firstOrCreate(
+                ['id' => $id],
+                ['idlsp' => $idlsp],
+                ['kode' => $kode],
+                ['nama' => $nama],
+                ['idjenis' => $idjenis],
+                ['idpropinsi' => $idpropinsi],
+                ['idkota' => $idkota],
+                ['alamat' => $alamat],
+                ['telp' => $telp],
+                ['hp' => $hp],
+                ['fax' => $fax],
+                ['email' => $email],
+                ['keterangan' => $keterangan]
+            );
+
+            $tukLpjk->save();
+        } catch (QueryException $e) {
+            // Handle the database query exception
+            // You can log the error, show an error message, or perform any necessary action
+            // Example: Log the error message and stack trace
+            Log::error('Database Query Exception: ' . $e->getMessage());
+        }
     }
 }

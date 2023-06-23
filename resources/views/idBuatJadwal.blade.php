@@ -1,48 +1,48 @@
 <style>
-  body{
+  body {
     background-color: #DBE2EF;
     overflow: hidden;
   }
 
-  *{
-    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Ubuntu,sans-serif;
+  * {
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Ubuntu, sans-serif;
   }
 
-  .container{
+  .container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    width: 100%; 
+    width: 100%;
   }
 
-  .heightcontainer{
+  .heightcontainer {
     margin: auto;
   }
 
-  .title{
+  .title {
     width: 100%;
     display: flex;
     justify-content: center;
   }
 
-  .form{
+  .form {
     height: min-content;
   }
 
-  h1{
+  h1 {
     color: white;
   }
 
-  label{
+  label {
     color: white;
   }
- 
-  .input{
+
+  .input {
     padding-top: 20px;
   }
- 
-  input{
+
+  input {
     height: 40px;
     width: 290px;
     border-color: white;
@@ -63,15 +63,15 @@
     color: white;
   }
 
-  button{
-   border-color: white;
-   border-radius: 0%;
-   padding: 10px;
-   background: white;
-   border-radius: 5px;
+  button {
+    border-color: white;
+    border-radius: 0%;
+    padding: 10px;
+    background: white;
+    border-radius: 5px;
   }
 
- .sidebar {
+  .sidebar {
     width: 265px;
     /* background-color: #f2f2f2; */
     background-color: white;
@@ -86,13 +86,13 @@
     z-index: 1;
   }
 
-  .logo{
+  .logo {
     display: flex;
     justify-content: center;
     width: 100%;
   }
 
-  img.lsp{
+  img.lsp {
     width: 247px;
   }
 
@@ -103,8 +103,8 @@
   }
 
   .sidebar ul li {
-      margin-top: 10px;
-      margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
   .sidebar ul li a {
@@ -119,7 +119,7 @@
     font-weight: bold;
   }
 
-  .kotak{
+  .kotak {
     width: 90%;
     height: 100%;
     background: #3F72AF;
@@ -133,33 +133,32 @@
     top: 0;
     margin: auto;
   }
-        
 </style>
- 
+
 <div class="sidebar">
   <div class="logo">
     <img src="https://lspgatensi.id/images/logo-color.webp" alt="Logo" class="lsp">
   </div>
   <ul class="menus">
-      <li><a href="/">Get Data</a></li>
-      <li><a href="/data">Verifikasi</a></li>
-      <li><a href="/idBuatJadwal">Buat Jadwal</a></li>
+    <li><a href="/">Get Data</a></li>
+    <li><a href="/data">Verifikasi</a></li>
+    <li><a href="/idBuatJadwal">Buat Jadwal</a></li>
   </ul>
 </div>
- 
- 
-   <div class="kotak">
-     <div class="title">
-       <h1>Input Jadwal</h1>
-     </div>
-     <div class="form">
-       <form method="POST" action="{{ route('input_jadwal')}}">
-         @csrf
-         {{-- <label for="id_izin">ID Izin: </label><br> --}}
-         <div class="input">
-           <input type="text" name="id_izin" id="id_izin" placeholder="ID Izin" required>
-           <button type="submit">Submit</button>
-         </div>
-       </form>
-     </div>
-   </div>
+
+
+<div class="kotak">
+  <div class="title">
+    <h1>Input Jadwal</h1>
+  </div>
+  <div class="form">
+    <form method="POST" action="{{ route('input_jadwal') }}">
+      @csrf
+      {{-- <label for="id_izin">ID Izin: </label><br> --}}
+      <div class="input">
+        <input type="text" name="id_izin" id="id_izin" placeholder="ID Izin" required>
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,4 +1,6 @@
-{{-- @php
+@include('layouts.navigation')
+
+@php
   $jenjangs = [
       '1' => 'SD',
       '2' => 'SMP',
@@ -58,7 +60,7 @@
       '94' => 'Papua',
   ];
   
-@endphp --}}
+@endphp
 
 
 <style>
@@ -339,6 +341,10 @@
         <div class="form-group">
           <label for="skema_id">ID Skema</label>
           <input type="text" name="skema_id" id="skema_id" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <label for="tuk_id">ID TUK</label>
+          <input type="text" name="tuk_id" id="tuk_id" class="form-control" required>
         </div>
       </div>
       <div>

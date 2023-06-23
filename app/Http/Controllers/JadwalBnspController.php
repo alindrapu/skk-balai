@@ -24,7 +24,7 @@ class JadwalBnspController extends Controller
         $personalsData = DB::table('personals')->where('id_izin', $id_izin)->select('nik', 'nama', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'alamat', 'kabupaten', 'propinsi', 'telepon', 'email')->first();
 
         $jadwal_id = (int)$request->input('jadwal_id');
-        $tuk_id = 45945;
+        $tuk_id = (int)$request->input('tuk_id');
         $asesor_id = (int)$request->input('asesor_id');
         $jenis_kelamin = $personalsData->jenis_kelamin;
         $nik = $personalsData->nik;
