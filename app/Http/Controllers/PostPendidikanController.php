@@ -19,24 +19,16 @@ class PostPendidikanController extends Controller
     {
         try {
             DB::beginTransaction();
+            // Check if personals record exists
+            $personal = Personal::where('id_izin', $id_izin)->first();
+            // Retrieve data from personal
+            $negara = $personal->negara;
+            $propinsi = $personal->propinsi;
+            $kabupaten = $personal->kabupaten;
 
-            $idIzin = Str::slug('id_izin');
-
-            $scanIjazahFile = $request->file('scan_ijazah_legalisir');
-            $scanSuketFile = $request->file('scan_surat_keterangan');
-
-
-            $ftpConfig = [
-                'host' => 'ftp.lspgatensi.id',
-                'username' => 'mygatensi@lspgatensi.id',
-                'password' => 'LSP@gkk2022',
-                'port' => 21,
-                'ssl' => false,
-                'passive' => true,
-            ];
-
+            // Store "ijazah" and "suket" through FTP
+            $ftpConfig = config('filesystems.disks.ftp');   // Get config ftp
             $ftpConnection = ftp_connect($ftpConfig['host'], $ftpConfig['port']);
-
             if ($ftpConnection) {
                 $loggedIn = ftp_login(
                     $ftpConnection,
@@ -51,17 +43,13 @@ class PostPendidikanController extends Controller
                     $scanIjazahFile = $request->file('scan_ijazah_legalisir');
                     $scanSuketFile = $request->file('scan_surat_keterangan');
 
-                    // Store Files using the FTP Driver
-                    $scanIjazahFile = null;
-                    $scanSuketFile = null;
-
                     if ($scanIjazahFile) {
-                        $scanIjazahPath = '/balai/jawdaskkxkIIwk/' . $idIzin . '.' . $scanIjazahFile->getClientOriginalExtension();
+                        $scanIjazahPath = '/dev/pendidikan/' . $id_izin . '.' . $scanIjazahFile->getClientOriginalExtension();
                         ftp_put($ftpConnection, $scanIjazahPath, $scanIjazahFile->path(), FTP_BINARY);
                     }
 
                     if ($scanSuketFile) {
-                        $scanSuketPath = '/balai/kajsdflaehijuwbgaJJSS/' . $idIzin . '.' . $scanSuketFile->getClientOriginalExtension();
+                        $scanSuketPath = '/dev/suket/' . $id_izin . '.' . $scanSuketFile->getClientOriginalExtension();
                         ftp_put($ftpConnection, $scanSuketPath, $scanSuketFile->path(), FTP_BINARY);
                     }
 
@@ -81,22 +69,22 @@ class PostPendidikanController extends Controller
                 // For example:
                 throw new Exception('Failed to establish FTP connection.');
             }
-
             // Generate the file URLs
-            $scanIjazahUrl = 'https://lspgatensi.id/files/balai/jawdaskkxkIIwk/' . $id_izin . '.' . 'pdf';
-            $scanSuketUrl = 'https://lspgatensi.id/file/balai/kajsdflaehijuwbgaJJSS/' . $id_izin . '.' . 'pdf';
-
-
-            // Check if personals record exists
-            $personal = Personal::where('id_izin', $id_izin)->first();
+            $scanIjazahUrl = 'https://lspgatensi.id/files/dev/pendidikan/' . $id_izin . '.' . 'pdf';
+            $scanSuketUrl = 'https://lspgatensi.id/file/dev/suket/' . $id_izin . '.' . 'pdf';
 
             if ($personal) {
-                // Retrieve data from personal
-                $negara = $personal->negara;
-                $propinsi = $personal->propinsi;
-                $kabupaten = $personal->kabupaten;
-
-                // Retrieve data from input form
+                // Validate & Retrieve data from input form
+                $validatedData = $request->validate([
+                    'nama_sekolah_perguruan_tinggi' => ['required'],
+                    'program_studi' => ['required'],
+                    'no_ijazah' => ['required'],
+                    'tahun_lulus' => ['required'],
+                    'jenjang' => ['required'],
+                    'alamat' => ['required'],
+                    'scan_ijazah_legalisir' => ['required'],
+                ]);
+                
                 $apiData = [
                     'nama_sekolah_perguruan_tinggi' => $request->input('nama_sekolah_perguruan_tinggi'),
                     'program_studi' => $request->input('program_studi'),
@@ -111,7 +99,6 @@ class PostPendidikanController extends Controller
                     'scan_surat_keterangan' => $scanSuketUrl,
                 ];
             } else {
-
                 return redirect()->back()->with('error', 'Personal record not found.');
             }
 
@@ -122,35 +109,36 @@ class PostPendidikanController extends Controller
                 $apiData['scan_surat_keterangan'] = '';
             }
 
-            $httpClient = new \GuzzleHttp\Client();
-            $apiEndpoint = 'https://siki.pu.go.id/siki-api/v1/pendidikan-skk-balai/' . $id_izin;
+            // POST data to external url (Siki PU)
+            // $httpClient = new \GuzzleHttp\Client();
+            // $apiEndpoint = 'https://siki.pu.go.id/siki-api/v1/pendidikan-skk-balai/' . $id_izin;
 
-            try {
-                $response = $httpClient->request('POST', $apiEndpoint, [
-                    'headers' => [
-                        'Content-Type' => 'application/json',
-                        'token' => 'f3332337ac671c33262198340c2f7b579f7843775ecc425107f086956cbb2b1a9e96b0cc6f643d24',
-                    ],
-                    'json' => $apiData,
-                ]);
-            } catch (RequestException $e) {
-                $statusCode = $e->getResponse()->getStatusCode();
-                $responseBody = $e->getResponse()->getBody()->getContents();
+            // try {
+            //     $response = $httpClient->request('POST', $apiEndpoint, [
+            //         'headers' => [
+            //             'Content-Type' => 'application/json',
+            //             'token' => 'f3332337ac671c33262198340c2f7b579f7843775ecc425107f086956cbb2b1a9e96b0cc6f643d24',
+            //         ],
+            //         'json' => $apiData,
+            //     ]);
+            // } catch (RequestException $e) {
+            //     $statusCode = $e->getResponse()->getStatusCode();
+            //     $responseBody = $e->getResponse()->getBody()->getContents();
 
-                // Log the Error
-                error_log("API Request Failed with status code: $statusCode, response body: $responseBody");
+            //     // Log the Error
+            //     error_log("API Request Failed with status code: $statusCode, response body: $responseBody");
 
-                // Return an appropriate error response to the user with detailed error message
-                return response()->json(['error' => 'Failed to process data', 'message' => $responseBody], 500);
-            } catch (\Exception $e) {
-                // Handle any other exceptions
+            //     // Return an appropriate error response to the user with detailed error message
+            //     return response()->json(['error' => 'Failed to process data', 'message' => $responseBody], 500);
+            // } catch (\Exception $e) {
+            //     // Handle any other exceptions
 
-                // Log the error
-                error_log('API Request Failed with an exception: ' . $e->getMessage());
+            //     // Log the error
+            //     error_log('API Request Failed with an exception: ' . $e->getMessage());
 
-                // Return an appropriate error response to the user with detailed error message
-                return response()->json(['error' => 'Failed to process data', 'message' => $e->getMessage()], 500);
-            }
+            //     // Return an appropriate error response to the user with detailed error message
+            //     return response()->json(['error' => 'Failed to process data', 'message' => $e->getMessage()], 500);
+            // }
 
             // Create and save the Pendidikan model within the transaction
             $pendidikan = Pendidikan::where('id_izin', $id_izin)->first();
@@ -161,6 +149,7 @@ class PostPendidikanController extends Controller
                 $pendidikan->program_studi = $apiData['program_studi'];
                 $pendidikan->no_ijazah = $apiData['no_ijazah'];
                 $pendidikan->jenjang = $apiData['jenjang'];
+                $pendidikan->tahun_lulus = $apiData['tahun_lulus'];
                 $pendidikan->alamat = $apiData['alamat'];
                 $pendidikan->negara = $apiData['negara'];
                 $pendidikan->propinsi = $apiData['propinsi'];
@@ -174,6 +163,7 @@ class PostPendidikanController extends Controller
                     'nama_sekolah_perguruan_tinggi' => $apiData['nama_sekolah_perguruan_tinggi'],
                     'program_studi' => $apiData['program_studi'],
                     'no_ijazah' => $apiData['no_ijazah'],
+                    'tahun_lulus' => $apiData['tahun_lulus'],
                     'jenjang' => $apiData['jenjang'],
                     'alamat' => $apiData['alamat'],
                     'negara' => $apiData['negara'],
@@ -189,7 +179,7 @@ class PostPendidikanController extends Controller
             return response()->json([
                 'message', 'Berhasil menambahkan data ke database'
             ]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
             return response()->json([
                 'message' => 'Gagal memproses data',
