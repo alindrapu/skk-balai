@@ -516,14 +516,16 @@
                     <form class="my-form" action="{{ route('hitVerifikasi', ['id_izin' => $id_izin]) }}"
                         method="POST">
                         @csrf
-                        <button type="submit" class="btn btn-primary">Verifikasi
+                        <button type="submit"
+                            class="flex-none h-10 rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Verifikasi
                         </button>
                     </form>
 
                     {{-- Validasi Button --}}
                     <form class="my-form" action="{{ route('hitValidasi', ['id_izin' => $id_izin]) }}" method="POST">
                         @csrf
-                        <button type="submit" class="btn btn-primary">Validasi
+                        <button type="submit"
+                            class="flex-none h-10 rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Validasi
                         </button>
                     </form>
 
@@ -549,8 +551,9 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="ktp">KTP:</label>
-                                <input type="file" name="ktp" id="ktp" class="form-control-file" required>
+                                <label for="ktp">KTP: </label>
+                                <input type="file" name="ktp" id="ktp" class="form-control-file"
+                                    accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps" required>
                             </div>
 
                             <div class="form-group">
@@ -559,6 +562,7 @@
                                     id="surat_pernyataan_kebenaran_data" class="form-control-file">
                             </div>
 
+
                             <div class="form-group">
                                 <label for="file_npwp">File NPWP:</label>
                                 <input type="file" name="file_npwp" id="file_npwp" class="form-control-file">
@@ -566,11 +570,13 @@
 
                             <div class="form-group">
                                 <label for="pas_foto">Pas Foto:</label>
-                                <input type="file" name="pas_foto" id="pas_foto" class="form-control-file" required>
+                                <input type="file" name="pas_foto" id="pas_foto" class="form-control-file"
+                                    accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps" required>
                             </div>
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit"
+                                class="flex-none h-10 rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Submit</button>
                         </div>
                     </form>
 
@@ -583,7 +589,8 @@
                             <label for="tuk">TUK:</label>
                             <input type="text" name="tuk" id="tuk" class="form-control" required>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit"
+                            class="flex-none h-10 rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Submit</button>
                     </form>
                 </div>
             </div>
@@ -691,7 +698,8 @@
                             <div class="form-group">
                                 <label for="scan_ijazah_legalisir">Scan Ijazah:</label>
                                 <input type="file" name="scan_ijazah_legalisir" id="scan_ijazah_legalisir"
-                                    class="form-control-file">
+                                    class="form-control-file"
+                                    accept="image/jpeg,image/gif,image/png,application/pdf,image/x-eps">
                             </div>
 
                             <div class="form-group">
@@ -701,7 +709,8 @@
                             </div>
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="submit"
+                                class="flex-none h-10 rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -827,7 +836,8 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit"
+                            class="flex-none h-10 rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Submit</button>
                     </form>
                 </div>
             </div>

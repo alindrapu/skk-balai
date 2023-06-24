@@ -157,7 +157,7 @@
         </h2>
     </x-slot>
     <div>
-        <div class="">
+        <div class="flex justify-center h-screen w-screen items-center">
             <form method="POST" action="{{ route('showData') }}">
                 @csrf
                 <!-- <label for="id_izin">ID Izin: </label><br> -->
