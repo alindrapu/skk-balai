@@ -23,9 +23,17 @@ class PostPendidikanController extends Controller
                 'tahun_lulus' => ['required'],
                 'jenjang' => ['required'],
                 'alamat' => ['required'],
-                'scan_ijazah_legalisir' => ['required', 'file', 'mimes:pdf'],
-                'scan_surat_keterangan' => ['file', 'mimes:pdf']
             ]);
+
+            if(!$request->file("scan_ijazah_legalisir")){
+                $request->validate([
+                    'scan_surat_keterangan' => ['required']
+                ]);
+            } else if(!$request->file("scan_surat_keterangan")){
+                $request->validate([
+                    'scan_ijazah_legalisir' => ['required']
+                ]);
+            }
 
             DB::beginTransaction();
             // Check if personals record exists
@@ -52,16 +60,33 @@ class PostPendidikanController extends Controller
                     $scanIjazahFile = $request->file('scan_ijazah_legalisir');
                     $scanSuketFile = $request->file('scan_surat_keterangan');
                     
-
-                    if ($scanIjazahFile) {
-                        $scanIjazahPath = '/dev/pendidikan/' . $id_izin . '.' . $scanIjazahFile->getClientOriginalExtension();
-                        ftp_put($ftpConnection, $scanIjazahPath, $scanIjazahFile->path(), FTP_BINARY);
-                    }
-
-                    if ($scanSuketFile) {
-                        $scanSuketPath = '/dev/suket/' . $id_izin . '.' . $scanSuketFile->getClientOriginalExtension();
-                        ftp_put($ftpConnection, $scanSuketPath, $scanSuketFile->path(), FTP_BINARY);
-                    }
+                    if(App::environment() == "local"){
+                        if($scanIjazahFile && $scanSuketFile){
+                            $scanIjazahPath = '/dev/pendidikan/' . $id_izin . '.' . $scanIjazahFile->getClientOriginalExtension();
+                            $scanSuketPath = '/dev/suket/' . $id_izin . '.' . $scanSuketFile->getClientOriginalExtension();
+                            ftp_put($ftpConnection, $scanIjazahPath, $scanIjazahFile->path(), FTP_BINARY);
+                            ftp_put($ftpConnection, $scanSuketPath, $scanSuketFile->path(), FTP_BINARY);
+                        } else if ($scanIjazahFile) {
+                            $scanIjazahPath = '/dev/pendidikan/' . $id_izin . '.' . $scanIjazahFile->getClientOriginalExtension();
+                            ftp_put($ftpConnection, $scanIjazahPath, $scanIjazahFile->path(), FTP_BINARY);
+                        } else if ($scanSuketFile) {
+                            $scanSuketPath = '/dev/suket/' . $id_izin . '.' . $scanSuketFile->getClientOriginalExtension();
+                            ftp_put($ftpConnection, $scanSuketPath, $scanSuketFile->path(), FTP_BINARY);
+                        }                    
+                    } else if(App::environment() == "production") {
+                        if($scanIjazahFile && $scanSuketFile){
+                            $scanIjazahPath = '/balai/jawdaskkxkIIwk/' . $id_izin . '.' . $scanIjazahFile->getClientOriginalExtension();
+                            $scanSuketPath = '/balai/suket/' . $id_izin . '.' . $scanSuketFile->getClientOriginalExtension();
+                            ftp_put($ftpConnection, $scanIjazahPath, $scanIjazahFile->path(), FTP_BINARY);
+                            ftp_put($ftpConnection, $scanSuketPath, $scanSuketFile->path(), FTP_BINARY);
+                        } else if ($scanIjazahFile) {
+                            $scanIjazahPath = '/balai/jawdaskkxkIIwk/' . $id_izin . '.' . $scanIjazahFile->getClientOriginalExtension();
+                            ftp_put($ftpConnection, $scanIjazahPath, $scanIjazahFile->path(), FTP_BINARY);
+                        } else if ($scanSuketFile) {
+                            $scanSuketPath = '/balai/suket/' . $id_izin . '.' . $scanSuketFile->getClientOriginalExtension();
+                            ftp_put($ftpConnection, $scanSuketPath, $scanSuketFile->path(), FTP_BINARY);
+                        }  
+                    } 
 
                     // Close the FTP Connection
                     ftp_close($ftpConnection);
@@ -79,9 +104,31 @@ class PostPendidikanController extends Controller
                 // For example:
                 throw new Exception('Failed to establish FTP connection.');
             }
+
             // Generate the file URLs
-            $scanIjazahUrl = 'https://lspgatensi.id/files/dev/pendidikan/' . $id_izin . '.' . 'pdf';
-            $scanSuketUrl = 'https://lspgatensi.id/file/dev/suket/' . $id_izin . '.' . 'pdf';
+            if(App::environment() == "local"){
+                if($request->file("scan_ijazah_legalisir") && $request->file("scan_surat_keterangan")){
+                    $scanIjazahUrl = 'https://lspgatensi.id/files/dev/pendidikan/' . $id_izin . '.' . 'pdf';
+                    $scanSuketUrl = 'https://lspgatensi.id/files/dev/suket/' . $id_izin . '.' . 'pdf';
+                } else if($request->file("scan_ijazah_legalisir")){
+                    $scanIjazahUrl = 'https://lspgatensi.id/files/dev/pendidikan/' . $id_izin . '.' . 'pdf';
+                    $scanSuketUrl = '';
+                } else if($request->file("scan_surat_keterangan")){
+                    $scanIjazahUrl = '';
+                    $scanSuketUrl = 'https://lspgatensi.id/files/dev/suket/' . $id_izin . '.' . 'pdf';
+                }
+            } else if(App::environment() == "production") {
+                if($request->file("scan_ijazah_legalisir") && $request->file("scan_surat_keterangan")){
+                    $scanIjazahUrl = 'https://lspgatensi.id/files/balai/jawdaskkxkIIwk/' . $id_izin . '.' . 'pdf';
+                    $scanSuketUrl = 'https://lspgatensi.id/files/balai/suket/' . $id_izin . '.' . 'pdf';
+                } else if($request->file("scan_ijazah_legalisir")){
+                    $scanIjazahUrl = 'https://lspgatensi.id/files/balai/jawdaskkxkIIwk/' . $id_izin . '.' . 'pdf';
+                    $scanSuketUrl = '';
+                } else if($request->file("scan_surat_keterangan")){
+                    $scanIjazahUrl = '';
+                    $scanSuketUrl = 'https://lspgatensi.id/files/balai/suket/' . $id_izin . '.' . 'pdf';
+                }
+            }
 
             if ($personal) {            
                 $apiData = [
@@ -97,20 +144,20 @@ class PostPendidikanController extends Controller
                     'scan_ijazah_legalisir' => $scanIjazahUrl,
                     'scan_surat_keterangan' => $scanSuketUrl,
                 ];
-
+                
                 // Upload
                 $scanIjazahFile = $request->file('scan_ijazah_legalisir');
                 $scanSuketFile = $request->file('scan_surat_keterangan');
-
+                
             } else {
                 return redirect()->back()->with('error', 'Personal record not found.');
             }
-            $scanSuketFile = $request->file('scan_surat_keterangan');
-            if ($scanSuketFile && $scanSuketFile->getSize() === 0) {
-                $apiData['scan_surat_keterangan'] = $scanSuketUrl;
-            } else {
-                $apiData['scan_surat_keterangan'] = '';
-            }
+            // $scanSuketFile = $request->file('scan_surat_keterangan');
+            // if ($scanSuketFile && $scanSuketFile->getSize() === 0) {
+            //     $apiData['scan_surat_keterangan'] = $scanSuketUrl;
+            // } else {
+            //     $apiData['scan_surat_keterangan'] = '';
+            // }
 
             // POST data to external url (Siki PU) - set env to production for hit the API 
             if(App::environment() == "production"){
@@ -145,7 +192,6 @@ class PostPendidikanController extends Controller
                 }
             }
             
-
             // Create and save the Pendidikan model within the transaction
             $pendidikan = Pendidikan::where('id_izin', $id_izin)->first();
 
@@ -183,7 +229,8 @@ class PostPendidikanController extends Controller
             }
             DB::commit();
             return response()->json([
-                'message', 'Berhasil menambahkan data ke database'
+                'message', 'Berhasil menambahkan data ke database',
+                'data', $pendidikan
             ]);
         } catch (Exception $e) {
             DB::rollBack();
