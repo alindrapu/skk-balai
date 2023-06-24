@@ -56,16 +56,16 @@ return [
             'throw' => false,
         ],
 
-        // 'ftp' => [
-        //     'driver' => 'ftp',
-        //     'host' => env('FTP_HOST'),
-        //     'username' => env('FTP_USERNAME'),
-        //     'password' => env('FTP_PASSWORD'),
-        //     // 'root' => '/home/u5629174/lspgatensi.id/public/files',
-        //     'port' => 21,
-        //     'passive' => true,
-        //     'ssl' => false,
-        // ],
+        'ftp' => [
+            'driver' => 'ftp',
+            'host' => "ftp.lspgatensi.id",
+            'username' => "mygatensi@lspgatensi.id",
+            'password' => "LSP@gkk2022",
+            'root' => '/home/u5629174/lspgatensi.id/public/files',
+            'port' => 21,
+            'passive' => true,
+            'ssl' => false,
+        ],
 
     ],
 
