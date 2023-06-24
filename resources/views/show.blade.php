@@ -433,7 +433,7 @@
                 @foreach ($personals as $personal)
                   <tr>
                     <th>ID Izin</th>
-                    <td>{{ $personal->id_izin }}</td>
+                    <td>{{ $id_izin }}</td>
                   </tr>
                   <tr>
                     <th>NIK</th>
