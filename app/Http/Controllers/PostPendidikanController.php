@@ -8,16 +8,25 @@ use Exception;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use League\Flysystem\UnableToRetrieveMetadata;
-
-use function GuzzleHttp\Promise\exception_for;
+use Illuminate\Support\Facades\App;
 
 class PostPendidikanController extends Controller
 {
     public function storePendidikan(Request $request, $id_izin)
     {
         try {
+            // Validate Data
+            $request->validate([
+                'nama_sekolah_perguruan_tinggi' => ['required'],
+                'program_studi' => ['required'],
+                'no_ijazah' => ['required'],
+                'tahun_lulus' => ['required'],
+                'jenjang' => ['required'],
+                'alamat' => ['required'],
+                'scan_ijazah_legalisir' => ['required', 'file', 'mimes:pdf'],
+                'scan_surat_keterangan' => ['file', 'mimes:pdf']
+            ]);
+
             DB::beginTransaction();
             // Check if personals record exists
             $personal = Personal::where('id_izin', $id_izin)->first();
@@ -42,6 +51,7 @@ class PostPendidikanController extends Controller
 
                     $scanIjazahFile = $request->file('scan_ijazah_legalisir');
                     $scanSuketFile = $request->file('scan_surat_keterangan');
+                    
 
                     if ($scanIjazahFile) {
                         $scanIjazahPath = '/dev/pendidikan/' . $id_izin . '.' . $scanIjazahFile->getClientOriginalExtension();
@@ -73,18 +83,7 @@ class PostPendidikanController extends Controller
             $scanIjazahUrl = 'https://lspgatensi.id/files/dev/pendidikan/' . $id_izin . '.' . 'pdf';
             $scanSuketUrl = 'https://lspgatensi.id/file/dev/suket/' . $id_izin . '.' . 'pdf';
 
-            if ($personal) {
-                // Validate & Retrieve data from input form
-                $validatedData = $request->validate([
-                    'nama_sekolah_perguruan_tinggi' => ['required'],
-                    'program_studi' => ['required'],
-                    'no_ijazah' => ['required'],
-                    'tahun_lulus' => ['required'],
-                    'jenjang' => ['required'],
-                    'alamat' => ['required'],
-                    'scan_ijazah_legalisir' => ['required'],
-                ]);
-                
+            if ($personal) {            
                 $apiData = [
                     'nama_sekolah_perguruan_tinggi' => $request->input('nama_sekolah_perguruan_tinggi'),
                     'program_studi' => $request->input('program_studi'),
@@ -98,10 +97,14 @@ class PostPendidikanController extends Controller
                     'scan_ijazah_legalisir' => $scanIjazahUrl,
                     'scan_surat_keterangan' => $scanSuketUrl,
                 ];
+
+                // Upload
+                $scanIjazahFile = $request->file('scan_ijazah_legalisir');
+                $scanSuketFile = $request->file('scan_surat_keterangan');
+
             } else {
                 return redirect()->back()->with('error', 'Personal record not found.');
             }
-
             $scanSuketFile = $request->file('scan_surat_keterangan');
             if ($scanSuketFile && $scanSuketFile->getSize() === 0) {
                 $apiData['scan_surat_keterangan'] = $scanSuketUrl;
@@ -109,36 +112,39 @@ class PostPendidikanController extends Controller
                 $apiData['scan_surat_keterangan'] = '';
             }
 
-            // POST data to external url (Siki PU)
-            // $httpClient = new \GuzzleHttp\Client();
-            // $apiEndpoint = 'https://siki.pu.go.id/siki-api/v1/pendidikan-skk-balai/' . $id_izin;
+            // POST data to external url (Siki PU) - set env to production for hit the API 
+            if(App::environment() == "production"){
+                $httpClient = new \GuzzleHttp\Client();
+                $apiEndpoint = 'https://siki.pu.go.id/siki-api/v1/pendidikan-skk-balai/' . $id_izin;
 
-            // try {
-            //     $response = $httpClient->request('POST', $apiEndpoint, [
-            //         'headers' => [
-            //             'Content-Type' => 'application/json',
-            //             'token' => 'f3332337ac671c33262198340c2f7b579f7843775ecc425107f086956cbb2b1a9e96b0cc6f643d24',
-            //         ],
-            //         'json' => $apiData,
-            //     ]);
-            // } catch (RequestException $e) {
-            //     $statusCode = $e->getResponse()->getStatusCode();
-            //     $responseBody = $e->getResponse()->getBody()->getContents();
+                try {
+                    $response = $httpClient->request('POST', $apiEndpoint, [
+                        'headers' => [
+                            'Content-Type' => 'application/json',
+                            'token' => 'f3332337ac671c33262198340c2f7b579f7843775ecc425107f086956cbb2b1a9e96b0cc6f643d24',
+                        ],
+                        'json' => $apiData,
+                    ]);
+                } catch (RequestException $e) {
+                    $statusCode = $e->getResponse()->getStatusCode();
+                    $responseBody = $e->getResponse()->getBody()->getContents();
 
-            //     // Log the Error
-            //     error_log("API Request Failed with status code: $statusCode, response body: $responseBody");
+                    // Log the Error
+                    error_log("API Request Failed with status code: $statusCode, response body: $responseBody");
 
-            //     // Return an appropriate error response to the user with detailed error message
-            //     return response()->json(['error' => 'Failed to process data', 'message' => $responseBody], 500);
-            // } catch (\Exception $e) {
-            //     // Handle any other exceptions
+                    // Return an appropriate error response to the user with detailed error message
+                    return response()->json(['error' => 'Failed to process data', 'message' => $responseBody], 500);
+                } catch (Exception $e) {
+                    // Handle any other exceptions
 
-            //     // Log the error
-            //     error_log('API Request Failed with an exception: ' . $e->getMessage());
+                    // Log the error
+                    error_log('API Request Failed with an exception: ' . $e->getMessage());
 
-            //     // Return an appropriate error response to the user with detailed error message
-            //     return response()->json(['error' => 'Failed to process data', 'message' => $e->getMessage()], 500);
-            // }
+                    // Return an appropriate error response to the user with detailed error message
+                    return response()->json(['error' => 'Failed to process data', 'message' => $e->getMessage()], 500);
+                }
+            }
+            
 
             // Create and save the Pendidikan model within the transaction
             $pendidikan = Pendidikan::where('id_izin', $id_izin)->first();

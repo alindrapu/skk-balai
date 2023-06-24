@@ -9,6 +9,7 @@ use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
 class PostProyekController extends Controller
@@ -16,20 +17,10 @@ class PostProyekController extends Controller
     public function storeProyek(Request $request, $id_izin)
     {
         try {
-            DB::beginTransaction();
-
             $idIzin = Str::slug($id_izin);
-
-            // FTP Configuration
-            $ftpConfig = [
-                'host' => 'ftp.lspgatensi.id',
-                'username' => 'mygatensi@lspgatensi.id',
-                'password' => 'LSP@gkk2022',
-                'port' => 21,
-                'ssl' => false,
-                'passive' => true,
-            ];
-
+            
+            DB::beginTransaction();
+            $ftpConfig = config('filesystems.disks.ftp'); 
             $ftpConnection = ftp_connect($ftpConfig['host'], $ftpConfig['port']);
 
             if ($ftpConnection) {
@@ -57,6 +48,17 @@ class PostProyekController extends Controller
             $suratReferensiUrl = 'https://lspgatensi.id/files/balai/kjhsdfkjahsKLIGHKU/' . $idIzin . '.pdf';
 
             // Making API Request
+            $validatedData = $request->validate([
+                'nama_proyek' => ['required'],
+                'lokasi_proyek' => ['required'],
+                'tanggal_awal' => ['required'],
+                'tanggal_akhir' => ['required'],
+                'jabatan' => ['required'],
+                'nilai_proyek' => ['required'],
+                'surat_referensi' => ['required'],
+                'pemberi_kerja' => ['required'],
+            ]);
+
             $apiData = [
                 'nama_proyek' => $request->input('nama_proyek'),
                 'lokasi_proyek' => $request->input('lokasi_proyek'),
@@ -69,36 +71,39 @@ class PostProyekController extends Controller
                 'pemberi_kerja' => $request->input('pemberi_kerja'),
             ];
 
-            $httpClient = new \GuzzleHttp\Client();
-            $apiEndpoint = 'https://siki.pu.go.id/siki-api/v1/proyek-skk-balai/' . $id_izin;
+            if(App::environment() == "production"){
+                $httpClient = new \GuzzleHttp\Client();
+                $apiEndpoint = 'https://siki.pu.go.id/siki-api/v1/proyek-skk-balai/' . $id_izin;
 
-            try {
-                $response = $httpClient->request('POST', $apiEndpoint, [
-                    'headers' => [
-                        'Content-Type' => 'application/json',
-                        'token' => 'f3332337ac671c33262198340c2f7b579f7843775ecc425107f086956cbb2b1a9e96b0cc6f643d24',
-                    ],
-                    'json' => $apiData,
-                ]);
-                $responseBody = $response->getBody()->getContents();
-                $responseData = json_decode($responseBody, true); // Decode the JSON response
+                try {
+                    $response = $httpClient->request('POST', $apiEndpoint, [
+                        'headers' => [
+                            'Content-Type' => 'application/json',
+                            'token' => 'f3332337ac671c33262198340c2f7b579f7843775ecc425107f086956cbb2b1a9e96b0cc6f643d24',
+                        ],
+                        'json' => $apiData,
+                    ]);
+                    $responseBody = $response->getBody()->getContents();
+                    $responseData = json_decode($responseBody, true); // Decode the JSON response
 
-                // // $id = $responseData['id'];
-                // $created = $responseData['created'];
-                // $creator = $responseData['creator'];
-                // $dataID = $responseData['data_id'];
-                // $updated = $responseData['updated'];
-                Log::info('Sukses mengirim request');
-            } catch (RequestException $e) {
-                $statusCode = $e->getResponse()->getStatusCode();
-                $responseBody = $e->getResponse()->getBody()->getContents();
+                    // // $id = $responseData['id'];
+                    // $created = $responseData['created'];
+                    // $creator = $responseData['creator'];
+                    // $dataID = $responseData['data_id'];
+                    // $updated = $responseData['updated'];
+                    Log::info('Sukses mengirim request');
+                } catch (RequestException $e) {
+                    $statusCode = $e->getResponse()->getStatusCode();
+                    $responseBody = $e->getResponse()->getBody()->getContents();
 
-                // Log the Error
-                error_log("API Request Failed with status code: $statusCode, response body: $responseBody");
+                    // Log the Error
+                    error_log("API Request Failed with status code: $statusCode, response body: $responseBody");
 
-                // Return an appropriate error response to the user with detailed error message
-                return response()->json(['error' => 'Failed to process data', 'message' => $responseBody], 500);
+                    // Return an appropriate error response to the user with detailed error message
+                    return response()->json(['error' => 'Failed to process data', 'message' => $responseBody], 500);
+                }
             }
+            
 
             // Create and save Proyek model within the transaction
             $proyek = Proyek::where('id_izin', $id_izin)->first();
@@ -135,7 +140,7 @@ class PostProyekController extends Controller
             return response()->json([
                 'message' => 'Berhasil menambahkan data ke database',
             ]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
 
             return response()->json([
