@@ -13,7 +13,10 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('List Permohonan') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('listPencatatan')" :active="request()->routeIs('listPencatatan')">
+                        {{ __('List Pencatatan') }}
                     </x-nav-link>
                     <x-nav-link :href="route('getData')" :active="request()->routeIs('getData')">
                         {{ __('Get Data') }}
