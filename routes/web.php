@@ -9,6 +9,7 @@ use App\Http\Controllers\PostPendidikanController;
 use App\Http\Controllers\PostProyekController;
 use App\Http\Controllers\PutPersonalController;
 use App\Http\Controllers\PutRegistrasi;
+use App\Http\Controllers\ListPermohonanController;
 use App\Http\Controllers\SertifikatController;
 use App\Http\Controllers\VerifikasiController;
 use Illuminate\Http\Request;
@@ -43,8 +44,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/data', function () {
         return view('data');
     })->name('verifikasiData');
+    Route::get('/list-permohonan', function () {
+        return view('dashboard');
+    })->name('list-permohonan');
 });
-
 
 // Route::post('/idBuatJadwal/{id_izin}', [JadwalBnspController::class, 'buatJadwal'])->name('buatJadwal');
 
