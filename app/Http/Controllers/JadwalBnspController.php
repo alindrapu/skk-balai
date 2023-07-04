@@ -306,8 +306,6 @@ class JadwalBnspController extends Controller
             "file_ijazah" => $file_ijazah
         ];
 
-        dd($apiData);
-
 
         $httpClient = new \GuzzleHttp\Client();
         $authData = DB::table('b_n_s_p_auths')->select('x_authorization')->first()->x_authorization;

@@ -76,6 +76,9 @@ Route::post('store-proyek/{id_izin}', [PostProyekController::class, 'storeProyek
 //Buat Jadwal
 Route::post('/buat-jadwal', [JadwalBnspController::class, 'storeJadwal'])->name('storeJadwal');
 
+//Surat Tugas
+Route::post('/suratTugas', [SuratTugasController::class, 'surat-tugas'])->name('surat-tugas');
+
 // Route::post('/buat-jadwal/{id_izin}', [JadwalBnspController::class, 'buatJadwal'])->name('buatJadwal');
 
 Route::get('show-data/{id_izin}', function () {
@@ -93,6 +96,17 @@ Route::post('input-jadwal/', function (Request $request) {
 Route::get("input-jadwal/{id_izin}", function ($id_izin) {
     return view('buat-jadwal', ['id_izin' => $id_izin]);
 });
+
+Route::get("list-pencatatan", [ListPencatatanController::class, 'listPencatatan'])->name('listPencatatan');
+    
+Route::get('suratTugas', function () {
+    return view('suratTugas');
+})->name('suratTugas');
+
+// Route::post('/idBuatJadwal/{id_izin}', [JadwalBnspController::class, 'buatJadwal'])->name('buatJadwal');
+
+// Route::get('/idBuatjadwal', [JadwalBnspController::class, 'index'])->name('buatJadwal');
+
 
 
 // Generate Certificate

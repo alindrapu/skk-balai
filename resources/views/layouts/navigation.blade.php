@@ -24,6 +24,9 @@
                     <x-nav-link :href="route('idBuatJadwal')" :active="request()->routeIs('idBuatJadwal')">
                         {{ __('Buat Jadwal') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('suratTugas')" :active="request()->routeIs('suratTugas')">
+                        {{ __('Surat Tugas') }}
+                    </x-nav-link>
                 </div>
             </div>
 
