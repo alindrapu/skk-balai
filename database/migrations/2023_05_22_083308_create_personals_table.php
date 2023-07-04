@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('email');
             $table->string('telepon');
             $table->string('npwp');
+            $table->string('status');
             $table->string('jenis_kelamin');
             $table->string('alamat')->nullable();
             $table->string('negara')->nullable();

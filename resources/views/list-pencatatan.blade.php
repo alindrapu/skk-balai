@@ -43,7 +43,13 @@
                                     <td>{{ $pencatatan->subklasifikasi }}</td>
                                     <td>{{ $pencatatan->kualifikasi }}</td>
                                     <td>{{ $pencatatan->jadwal_id }}</td>
-                                    <td><button class="p-2 bg-yellow-500 rounded">Get Blanko</button></td>
+                                    <td>
+                                        @if ($pencatatan->nomor_blangko_bnsp == '')
+                                            <button class="p-2 bg-yellow-500 rounded">Get Blanko</button>
+                                        @else
+                                            {{ $pencatatan->nomor_blangko_bnsp }}
+                                        @endif
+                                    </td>
                                     <td><button class="p-2 bg-blue-400 rounded">Preview Sertifikat</button></td>
                                     <td><button class="p-2 bg-green-600 rounded">Menunggu Blanko</button></td>
                                 </tr>
