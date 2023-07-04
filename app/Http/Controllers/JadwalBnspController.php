@@ -236,7 +236,7 @@ class JadwalBnspController extends Controller
         $personalsData = DB::table('personals')->where('id_izin', $id_izin)->select('nik', 'nama', 'tempat_lahir', 'tanggal_lahir', 'jenis_kelamin', 'alamat', 'kabupaten', 'propinsi', 'telepon', 'email')->first();
 
         $jadwal_id = (int)$request->input('jadwal_id');
-        $tuk_id = 45945;
+        $tuk_id = (int)$request->input('tuk_id');
         $asesor_id = (int)$request->input('asesor_id');
         $jenis_kelamin = $personalsData->jenis_kelamin;
         $nik = $personalsData->nik;
@@ -249,6 +249,7 @@ class JadwalBnspController extends Controller
         $provinsi_id = $personalsData->propinsi;
         $telepon = $personalsData->telepon;
         $email = $personalsData->email;
+        $skema_id = (int)$request->input('skema_id');
 
 
         // Retrieve values from the "pendidikans" table
@@ -265,6 +266,7 @@ class JadwalBnspController extends Controller
         $file_ktp = $fileKtpData->ktp;
         $file_ijazah = $pendidikansData->scan_ijazah_legalisir;
         $jenjang_id = ($pendidikansData->jenjang == 8) ? 7 : $pendidikansData->jenjang;
+
 
         $apiData = [
             "jadwal_id" => $jadwal_id,
@@ -284,7 +286,7 @@ class JadwalBnspController extends Controller
             "telepon" => $telepon,
             "email" => $email,
             "jenis_mohon" => 1,
-            "skema_id" => 63547,
+            "skema_id" => $skema_id,
             "keterangan" => "",
             "jenjang_id" => $jenjang_id,
             "prodi" => $prodi,
@@ -303,6 +305,8 @@ class JadwalBnspController extends Controller
             "file_nib" => "",
             "file_ijazah" => $file_ijazah
         ];
+
+        dd($apiData);
 
 
         $httpClient = new \GuzzleHttp\Client();
