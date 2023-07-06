@@ -18,6 +18,7 @@ class DataPencatatan extends Model
         'nik',
         'nama',
         'id_propinsi',
+        'propinsi',
         'id_kabupaten',
         'kabupaten',
         'id_kualifikasi',

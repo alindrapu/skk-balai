@@ -48,7 +48,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/list-permohonan', function () {
         return view('dashboard');
     })->name('list-permohonan');
-});
 
 // Route::post('/idBuatJadwal/{id_izin}', [JadwalBnspController::class, 'buatJadwal'])->name('buatJadwal');
 
@@ -100,6 +99,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get("list-pencatatan", [ListPencatatanController::class, 'listPencatatan'])->name('listPencatatan');
 });
+
+Route::get("isi-data-pencatatan", [ListPencatatanController::class, 'inputDataPencatatan'])->name('inputDataPencatatan');
 
 
 // Route::post('/idBuatJadwal/{id_izin}', [JadwalBnspController::class, 'buatJadwal'])->name('buatJadwal');

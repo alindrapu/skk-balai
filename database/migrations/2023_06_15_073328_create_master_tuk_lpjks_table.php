@@ -11,22 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('master_tuk_lpjks', function (Blueprint $table) {
-            $table->id();
-            $table->string('id_lsp')->nullable();
-            $table->text('kode')->nullable();
-            $table->integer('jenis_tuk')->nullable();
-            $table->text('nama_tuk')->nullable();
-            $table->text('alamat')->nullable();
-            $table->string('telp')->nullable();
-            $table->string('hp')->nullable();
-            $table->string('fax')->nullable();
-            $table->string('email')->nullable();
-            $table->text('keterangan')->nullable();
-            $table->string('id_propinsi')->nullable();
-            $table->string('id_kota')->nullable();
-            $table->timestamps();
-        });
+        // Schema::create('master_tuk_lpjks', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('id_lsp')->nullable();
+        //     $table->text('kode')->nullable();
+        //     $table->integer('jenis_tuk')->nullable();
+        //     $table->text('nama_tuk')->nullable();
+        //     $table->text('alamat')->nullable();
+        //     $table->string('telp')->nullable();
+        //     $table->string('hp')->nullable();
+        //     $table->string('fax')->nullable();
+        //     $table->string('email')->nullable();
+        //     $table->text('keterangan')->nullable();
+        //     $table->string('id_propinsi')->nullable();
+        //     $table->string('id_kota')->nullable();
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('master_tuk_lpjks');
+        // Schema::dropIfExists('master_tuk_lpjks');
     }
 };
