@@ -156,6 +156,16 @@
             {{ __('VERIFIKASI') }}
         </h2>
     </x-slot>
+
+    @if (session('success'))
+        <div class="w-[1210px] my-3 mx-auto bg-green-400 p-3 rounded-md">
+            <p>{{ session('success') }}</p>
+        </div>
+    @elseif (session('error'))
+        <div class="w-[1210px] my-3 mx-auto bg-red-400 p-3 rounded-md">
+            <p>{{ session('error') }}</p>
+        </div>
+    @endif
     <div>
         <div class="flex justify-center h-screen w-screen items-center">
             <form method="POST" action="{{ route('showData') }}">
@@ -165,7 +175,8 @@
                     class="md:flex sm:justify-center bg-gray-800 border-slate-600  shadow-md rounded px-8 pt-6 pb-8 mb-4 gap-5">
                     <input
                         class="min-w-0 flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 h-10 md:w-96"
-                        type="text" name="id_izin" placeholder="ID Izin" id="id_izin" required>
+                        type="text" name="id_izin" placeholder="ID Izin" id="id_izin"
+                        value="{{ session('id_izin') }}" required>
                     <button
                         class="flex-none h-10 rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
                         type="submit">Verifikasi</button>

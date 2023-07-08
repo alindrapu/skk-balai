@@ -28,6 +28,9 @@ class HitStatus extends Controller
                 ],
                 'json' => $apiData,
             ]);
+
+            return redirect("/data")->with("success", "Sukses Verifikasi")->with("id_izin", $id_izin);
+
         } catch (RequestException $e) {
             // Handle the 422 Unprocessable Entity response error
             $statusCode = $e->getResponse()->getStatusCode();
@@ -37,17 +40,21 @@ class HitStatus extends Controller
             error_log("API Request Failed with status code: $statusCode, response body: $responseBody");
 
             // Return an appropriate error response to the user with detailed error message
-            return response()->json(['error' => 'Failed to process data', 'message' => $responseBody], 500);
+            // return response()->json(['error' => 'Failed to process data', 'message' => $responseBody], 500);
+            return redirect("/data")->with("error", $responseBody)->with("id_izin", $id_izin);
         } catch (\Exception $e) {
             // Handle any other exceptions
-
+            
             // Log the error
             error_log('API Request Failed with an exception: ' . $e->getMessage());
-
+            
             // Return an appropriate error response to the user with detailed error message
-            return response()->json(['error' => 'Failed to process data', 'message' => $e->getMessage()], 500);
+            // return response()->json(['error' => 'Failed to process data', 'message' => $e->getMessage()], 500);
+            return redirect("/data")->with("error", $e->getMessage())->with("id_izin", $id_izin);
         };
+
     }
+
     public function hitValidasi(Request $request, $id_izin)
     {
         $id_izin = $request->route('id_izin');
@@ -70,7 +77,9 @@ class HitStatus extends Controller
                 'json' => $apiData,
             ]);
 
-            return redirect()->back()->with('success', 'Berhasil Verifikasi Data');
+            // return redirect()->back()->with('success', 'Berhasil Verifikasi Data');
+            return redirect("/data")->with("success", "Sukses Validasi")->with("id_izin", $id_izin);
+
         } catch (RequestException $e) {
             // Handle the 422 Unprocessable Entity response error
             $statusCode = $e->getResponse()->getStatusCode();
@@ -80,7 +89,8 @@ class HitStatus extends Controller
             error_log("API Request Failed with status code: $statusCode, response body: $responseBody");
 
             // Return an appropriate error response to the user with detailed error message
-            return response()->json(['error' => 'Failed to process data', 'message' => $responseBody], 500);
+            // return response()->json(['error' => 'Failed to process data', 'message' => $responseBody], 500);
+            return redirect("/data")->with("error", $responseBody)->with("id_izin", $id_izin);
         } catch (\Exception $e) {
             // Handle any other exceptions
 
@@ -88,7 +98,8 @@ class HitStatus extends Controller
             error_log('API Request Failed with an exception: ' . $e->getMessage());
 
             // Return an appropriate error response to the user with detailed error message
-            return response()->json(['error' => 'Failed to process data', 'message' => $e->getMessage()], 500);
+            // return response()->json(['error' => 'Failed to process data', 'message' => $e->getMessage()], 500);
+            return redirect("/data")->with("error", $e->getMessage())->with("id_izin", $id_izin);
         };
     }
 }

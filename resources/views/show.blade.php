@@ -337,6 +337,16 @@
             {{ __('DATA') }}
         </h2>
     </x-slot>
+    @if (session('success'))
+        <div class="w-[1210px] my-3 mx-auto bg-green-400 p-3 rounded-md">
+            <p>{{ session('success') }}</p>
+        </div>
+    @elseif (session('error'))
+        <div class="w-[1210px] my-3 mx-auto bg-red-400 p-3 rounded-md">
+            <p>{{ session('error') }}</p>
+        </div>
+    @endif
+
     <div class="content text-white flex flex-wrap justify-center">
         <section class="flex justify-between">
             {{-- <div class="flex w-max-96 items-center p-5 gap-10"> --}}
@@ -511,21 +521,26 @@
                 <div class="input personal">
 
                     {{-- Verifikasi Button --}}
-                    <form class="my-form" action="{{ route('hitVerifikasi', ['id_izin' => $id_izin]) }}"
-                        method="POST">
-                        @csrf
-                        <button type="submit"
-                            class="flex-none h-10 rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Verifikasi
-                        </button>
-                    </form>
+                    @if (!$isVerif)
+                        <form class="my-form" action="{{ route('hitVerifikasi', ['id_izin' => $id_izin]) }}"
+                            method="POST">
+                            @csrf
+                            <button type="submit"
+                                class="flex-none h-10 rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Verifikasi
+                            </button>
+                        </form>
+                    @endif
 
                     {{-- Validasi Button --}}
-                    <form class="my-form" action="{{ route('hitValidasi', ['id_izin' => $id_izin]) }}" method="POST">
-                        @csrf
-                        <button type="submit"
-                            class="flex-none h-10 rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Validasi
-                        </button>
-                    </form>
+                    @if (!$isValid)
+                        <form class="my-form" action="{{ route('hitValidasi', ['id_izin' => $id_izin]) }}"
+                            method="POST">
+                            @csrf
+                            <button type="submit"
+                                class="flex-none h-10 rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">Validasi
+                            </button>
+                        </form>
+                    @endif
 
                     {{-- Form Input Data Personal --}}
                     <h1 class="text-lg font-bold tracking-normal p-5">INPUT DATA PERSONAL</h1>

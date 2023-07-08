@@ -215,7 +215,28 @@ class DataController extends Controller
 
         $nama_jabker = searchJabker($klasifikasikualifikasis[0]->jabatan_kerja);
 
-        return view('show', compact('id_izin', 'personals', 'pendidikans', 'proyeks', 'pelatihans', 'sertifikatsukets', 'klasifikasikualifikasis', 'nama_jabker'));
+        // Check if already verif and valid
+        $url = 'https://siki.pu.go.id/siki-api/v1/status-skk-balai/' . $id_izin;
+
+        $jsonResponse = Http::withHeaders([
+            'Content-Type' => 'application/json',
+            'token' => 'f3332337ac671c33262198340c2f7b579f7843775ecc425107f086956cbb2b1a9e96b0cc6f643d24'
+        ])->get($url);
+
+        $response = json_decode($jsonResponse, true);
+
+        $isVerif = false;
+        $isValid = false;
+        foreach ($response['log'] as $status){
+            if($status['kd_status'] == "20"){
+                $isVerif = true;
+            }
+            if ($status['kd_status'] == "10"){
+                $isValid = true;
+            }
+        }
+
+        return view('show', compact('id_izin', 'personals', 'pendidikans', 'proyeks', 'pelatihans', 'sertifikatsukets', 'klasifikasikualifikasis', 'nama_jabker', 'isVerif', 'isValid'));
     }
 
     public function getDataTuk(Request $request)
