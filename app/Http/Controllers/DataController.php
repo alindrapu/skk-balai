@@ -194,8 +194,28 @@ class DataController extends Controller
         $pelatihans = Pelatihan::where('id_izin', $id_izin)->get();
         $sertifikatsukets = SertifikatSuket::where('id_izin', $id_izin)->get();
         $klasifikasikualifikasis = KlasifikasiKualifikasi::where('id_izin', $id_izin)->get();
+        
+        function searchJabker($jabker) {
+            $url = 'https://siki.pu.go.id/siki-api/v2/jabatan-kerja';
 
-        return view('show', compact('id_izin', 'personals', 'pendidikans', 'proyeks', 'pelatihans', 'sertifikatsukets', 'klasifikasikualifikasis'));
+            $jsonResponse = Http::withHeaders([
+                'Content-Type' => 'application/json',
+                'token' => 'f3332337ac671c33262198340c2f7b579f7843775ecc425107f086956cbb2b1a9e96b0cc6f643d24'
+            ])->get($url);
+            $responses = json_decode($jsonResponse, true);
+
+            foreach ($responses['data'] as $response){
+                // dd($response['id_jabatan_kerja']);
+                if($response['id_jabatan_kerja'] == $jabker){
+                    return $response['jabatan_kerja'];
+                }
+            }
+            return null;
+        }
+
+        $nama_jabker = searchJabker($klasifikasikualifikasis[0]->jabatan_kerja);
+
+        return view('show', compact('id_izin', 'personals', 'pendidikans', 'proyeks', 'pelatihans', 'sertifikatsukets', 'klasifikasikualifikasis', 'nama_jabker'));
     }
 
     public function getDataTuk(Request $request)
