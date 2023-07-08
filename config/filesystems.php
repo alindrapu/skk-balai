@@ -67,6 +67,16 @@ return [
             'ssl' => false,
         ],
 
+        'sertif_ftp' => [
+            'driver' => 'ftp',
+            'host' => "ftp.lspgatensi.id",
+            'username' => "mygatensi@lspgatensi.id",
+            'password' => "LSP@gkk2022",
+            'port' => 21,
+            'passive' => true,
+            'ssl' => false,
+        ],
+
     ],
 
     /*

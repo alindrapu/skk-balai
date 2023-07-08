@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CertificateController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DataController;
@@ -98,6 +99,8 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get("list-pencatatan", [ListPencatatanController::class, 'listPencatatan'])->name('listPencatatan');
+
+    Route::get("sertif", [CertificateController::class, 'index'])->name("indexCertificate");
 });
 
 Route::get("isi-data-pencatatan", [ListPencatatanController::class, 'inputDataPencatatan'])->name('inputDataPencatatan');

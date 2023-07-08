@@ -12,7 +12,8 @@
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
         "league/flysystem": "^3.15",
-        "league/flysystem-ftp": "^3.15"
+        "league/flysystem-ftp": "^3.15",
+        "simplesoftwareio/simple-qrcode": "~4"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
