@@ -28,6 +28,12 @@ class DataController extends Controller
     {
         $id_izin = $request->input('id_izin');
 
+        $check_id_izin = Personal::where("id_izin", $id_izin)->first();
+
+        if($check_id_izin != null){
+            return redirect()->back()->with("error_exist", "id_izin_exist");
+        }
+
         // Fetch data from the API
         $url = 'https://siki.pu.go.id/siki-api/v1/permohonan-skk-balai/' . $id_izin;
 

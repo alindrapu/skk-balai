@@ -90,6 +90,21 @@
             <x-responsive-nav-link :href="route('list-permohonan')" :active="request()->routeIs('list-permohonan')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('list-permohonan')" :active="request()->routeIs('list-permohonan')">
+                {{ __('List Permohonan') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('listPencatatan')" :active="request()->routeIs('listPencatatan')">
+                {{ __('List Pencatatan') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('getData')" :active="request()->routeIs('getData')">
+                {{ __('Get Data') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('verifikasiData')" :active="request()->routeIs('verifikasiData')">
+                {{ __('Verifikasi') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('idBuatJadwal')" :active="request()->routeIs('idBuatJadwal')">
+                {{ __('Buat Jadwal') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->

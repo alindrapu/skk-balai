@@ -165,9 +165,17 @@
             {{ __('Get Data') }}
         </h2>
     </x-slot>
-    {{-- <div class="kotak"> --}}
-    <div class=" flex justify-center h-screen w-screen items-center">
-        <div class="form-id ">
+    @if (session('error_exist'))
+        <div class="w-[1210px] my-3 mx-auto bg-red-400 p-3 rounded-md">
+            <p>ID Izin sudah ditambahkan, silahkan ke menu verifikasi</p>
+        </div>
+    @elseif (session('success'))
+        <div class="w-[1210px] my-3 mx-auto bg-green-400 p-3 rounded-md">
+            <p>ID Izin berhasil ditambahkan, silahkan ke menu verifikasi</p>
+        </div>
+    @endif
+    <div class="flex justify-center w-screen h-96 items-center">
+        <div class="form-id">
             <form action="{{ route('storeData') }}" method="POST">
                 @csrf
                 <div

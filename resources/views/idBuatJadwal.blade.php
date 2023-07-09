@@ -153,10 +153,10 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('BUAT JADWAL') }}
+            {{ __('Buat Jadwal') }}
         </h2>
     </x-slot>
-    <div class=" flex justify-center h-screen w-screen items-center">
+    <div class="flex justify-center w-screen h-96 items-center">
         <form method="POST" action="{{ route('input_jadwal') }}">
             @csrf
             {{-- <label for="id_izin">ID Izin: </label><br> --}}
